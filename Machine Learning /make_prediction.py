@@ -1,19 +1,13 @@
 import pandas as pd
 import numpy as np 
-import os 
-import matplotlib.pyplot as plt
 
-
-import IPython 
 import librosa
 import librosa.display
-import math 
 import warnings
 warnings.filterwarnings('ignore')
 
 from k_nearest_neighbor import KNN_predict 
-from KNN import Knn_predict
-seed = 12
+seed = 42
 np.random.seed(seed)
 
 hop_length = 512
@@ -77,10 +71,10 @@ def extract_features(audio_file):
         features[f'mfcc{i}_var'] = [mfcc_vars[i-1]]
     
     return features
+def predict(aud):
+    features_sample = extract_features(aud)
+    return (KNN_predict(features_sample))
 
-aud = "/home/khangpt/MUSIC-GEN-PROJ/User Data Test Songs/classiccal_test.mp3"
-features_sample = extract_features(aud)
-print('Prediction for the file name',aud ,'is:')
-print(KNN_predict(features_sample))
+print(predict("/home/khangpt/MUSIC-GEN-PROJ/User Data Test Songs/classiccal_test.mp3"))
 
 

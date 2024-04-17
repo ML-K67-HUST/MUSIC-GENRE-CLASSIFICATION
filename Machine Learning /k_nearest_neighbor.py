@@ -2,7 +2,6 @@
 import pandas as pd
 
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import make_pipeline
 
@@ -14,8 +13,6 @@ def KNN_predict(input):
 
   KNN = make_pipeline(MinMaxScaler(), 
                       KNeighborsClassifier(n_neighbors=1))
-  genre_dict = {"blues":0,"classical":1,"country":2,"disco":3,"hiphop":4,"jazz":5,"metal":6,"pop":7,"reggae":8,"rock":9}
-
   KNN.fit(x, y)
   pred = KNN.predict(input)
   return pred[0]
