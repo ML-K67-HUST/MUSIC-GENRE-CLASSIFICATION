@@ -11,8 +11,8 @@ import math
 import warnings
 warnings.filterwarnings('ignore')
 
+from k_nearest_neighbor import KNN_predict 
 from KNN import Knn_predict
-
 seed = 12
 np.random.seed(seed)
 
@@ -78,9 +78,9 @@ def extract_features(audio_file):
     
     return features
 
-aud = "/home/khangpt/MUSIC-GEN-PROJ/User Data Test Songs/classic.mp3"
+aud = "/home/khangpt/MUSIC-GEN-PROJ/User Data Test Songs/classiccal_test.mp3"
 features_sample = extract_features(aud)
-
-print(Knn_predict(features_sample))
+print('Prediction for the file name',aud ,'is:')
+print(KNN_predict(features_sample))
 
 
