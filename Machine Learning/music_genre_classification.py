@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv('/content/features_3_sec.csv')
+df = pd.read_csv('https://github.com/ML-K67-HUST/MUSIC-GEN-PROJ/blob/main/GTZAN/Data/features_3_sec.csv')
 df
 
 x = df.drop(['filename','label'], axis = 1)
