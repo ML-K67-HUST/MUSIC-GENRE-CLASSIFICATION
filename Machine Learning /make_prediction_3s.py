@@ -71,9 +71,9 @@ def analyze_audio(audio_file):
     l = len(y)//2
     features_comb = []
     start = 0
-    while start + 3*sr < len(y):
-        features_comb.append((extract_features(y[start:start+3*sr],sr),start))
-        start = start + 3*sr
+    while start + 30*sr < len(y):
+        features_comb.append((extract_features(y[start:start+30*sr],sr),start))
+        start = start + 30*sr
     return features_comb
 # def predict(aud):
 #     dic = {}
@@ -117,7 +117,7 @@ def predict_and_visualize(aud):
 
 # Call the function to predict and visualize
 print('Prediction result for classical_test.mp3:')
-predict_and_visualize("/home/khangpt/MUSIC-GEN-PROJ/User Data Test Songs/Yeu5-Rhymastic.mp3")
+predict_and_visualize("/home/khangpt/MUSIC-GEN-PROJ/User Data Test Songs/Yeu5-Rhymastic.mp3 ")
 
 
 
