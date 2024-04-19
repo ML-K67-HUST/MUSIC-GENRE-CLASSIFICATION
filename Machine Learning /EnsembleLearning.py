@@ -19,7 +19,7 @@ scaler = StandardScaler()
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
 
-model = LGBMClassifier(boosting_type= 'gbdt', learning_rate=0.2, max_depth= 7, num_leaves=31)
+model = LGBMClassifier(boosting_type= 'gbdt', learning_rate=0.2, max_depth= 7, num_leaves=150)
 model.fit(x_train,y_train)
 
 predictions = model.predict(x_test)
