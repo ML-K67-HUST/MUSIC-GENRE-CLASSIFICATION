@@ -1,12 +1,12 @@
 import pandas as pd
 import numpy as np 
+import pickle
 
 import librosa
 import librosa.display
 import warnings
 warnings.filterwarnings('ignore')
 
-from k_nearest_neighbor import KNN_predict 
 seed = 42
 np.random.seed(seed)
 
@@ -75,49 +75,63 @@ def analyze_audio(audio_file):
         features_comb.append((extract_features(y[start:start+30*sr],sr),start))
         start = start + 30*sr
     return features_comb
-# def predict(aud):
-#     dic = {}
-#     features_comb = analyze_audio(aud)
-#     for c,r in features_comb:
-#         pred = KNN_predict(c)
-#         dic[pred] = dic.get(pred,0)+1
-#     return dic
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Define genre colors
-genre_colors = {
-    "blues": "blue",
-    "classical": "green",
-    "country": "red",
-    "disco": "cyan",
-    "hiphop": "magenta",
-    "jazz": "yellow",
-    "metal": "orange",
-    "pop": "purple",
-    "reggae": "brown",
-    "rock": "gray"
-}
-genre_labels = list(genre_colors.keys())
-
-# Function to predict and visualize the distribution of genres
-def predict_and_visualize(aud):
+def predict_(aud):
+    dic_knn, dic_ens, dic_svm = {},{},{}
     features_comb = analyze_audio(aud)
-    for (c, r) in features_comb:
-        pred = KNN_predict(c)
-        genre_color = genre_colors.get(pred, "black")
-        start_time = r   # Start time of the segment in seconds
-        plt.scatter(start_time, 0, color=genre_color, marker='o', s=100)
-    
-    # Plot settings
-    handles = [plt.scatter([], [], color=color, label=genre) for genre, color in genre_colors.items()]
-    plt.legend(handles, genre_labels, loc='upper right')
+    with open('ens_model.pkl','rb') as file:
+        ens_model = pickle.load(file)
+    with open('knn_model.pkl','rb') as file:
+        knn_model = pickle.load(file)
+    with open('svm_model.pkl','rb') as file:
+        svm_model = pickle.load(file)
+    for c,r in features_comb:
+        pred_knn = knn_model.predict(c)
+        dic_knn[pred_knn[0]] = dic_knn.get(pred_knn[0],0) + 1
 
-    plt.show()
+        pred_ens = ens_model.predict(c)
+        dic_ens[pred_ens[0]] = dic_ens.get(pred_ens[0],0) + 1
+
+        pred_svm = ens_model.predict(c)
+        dic_svm[pred_svm[0]] = dic_svm.get(pred_svm[0],0) + 1
+
+    print("KNN's prediction : ",dic_knn)
+    print("Ensemble method's prediction : ",dic_ens)
+    print("SVM's Prediction : ",dic_svm)
+    return 'Finished!'
+
+# import matplotlib.pyplot as plt
+# import numpy as np
+
+# # Define genre colors
+# genre_colors = {
+#     "blues": "blue",
+#     "classical": "green",
+#     "country": "red",
+#     "disco": "cyan",
+#     "hiphop": "magenta",
+#     "jazz": "yellow",
+#     "metal": "orange",
+#     "pop": "purple",
+#     "reggae": "brown",
+#     "rock": "gray"
+# }
+# genre_labels = list(genre_colors.keys())
+
+# # Function to predict and visualize the distribution of genres
+# def predict_and_visualize(aud):
+#     features_comb = analyze_audio(aud)
+#     for (c, r) in features_comb:
+#         pred = KNN_predict(c)
+#         genre_color = genre_colors.get(pred, "black")
+#         start_time = r   # Start time of the segment in seconds
+#         plt.scatter(start_time, 0, color=genre_color, marker='o', s=100)
+    
+#     # Plot settings
+#     handles = [plt.scatter([], [], color=color, label=genre) for genre, color in genre_colors.items()]
+#     plt.legend(handles, genre_labels, loc='upper right')
+
+#     plt.show()
 
 # Call the function to predict and visualize
-print('Prediction result for classical_test.mp3:')
-predict_and_visualize("/home/khangpt/MUSIC-GEN-PROJ/User Data Test Songs/Yeu5-Rhymastic.mp3 ")
-
-
-
+audio = '/home/khangpt/MUSIC-GEN-PROJ/User Data Test Songs/classiccal_test.mp3'
+print(predict_(audio))
