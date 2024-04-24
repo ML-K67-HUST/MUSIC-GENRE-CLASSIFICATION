@@ -1,14 +1,10 @@
-import random
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn import preprocessing
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.preprocessing import StandardScaler
 from sklearn import svm
-from sklearn.metrics import confusion_matrix, classification_report
 import pickle
+
+
 dataset = pd.read_csv("GTZAN/Data/features_30_sec.csv")
 
 df = dataset.copy()

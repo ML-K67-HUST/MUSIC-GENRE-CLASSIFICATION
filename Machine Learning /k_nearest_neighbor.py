@@ -13,6 +13,5 @@ y = df['label']
 KNN = make_pipeline(MinMaxScaler(), 
                     KNeighborsClassifier(n_neighbors=5))
 KNN.fit(x, y)
-
 with open('knn_model.pkl','wb') as file:
   pickle.dump(KNN, file)
