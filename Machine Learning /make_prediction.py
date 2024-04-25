@@ -142,5 +142,5 @@ def predict_(aud):
 #     plt.show()
 
 # Call the function to predict and visualize
-audio = 'User Data Test Songs/classiccal_test.mp3'
+audio = 'User Data Test Songs/jazzt.mp3'
 print(predict_(audio))

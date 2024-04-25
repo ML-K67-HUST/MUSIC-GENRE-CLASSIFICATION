@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
 from sklearn import svm
 import pickle
 
@@ -20,11 +21,8 @@ X = df.iloc[:,:L-1].values
 df.label = pd.Categorical(df.label)
 y = np.array(df.label.cat.codes)
 
-
-scaler = StandardScaler()
-
-
-clf = svm.SVC(kernel='rbf', gamma='scale', C=50)
+clf = make_pipeline(StandardScaler(),
+                    svm.SVC(kernel='rbf', gamma='scale', C=50))
 
 clf.fit(X,y)
 
