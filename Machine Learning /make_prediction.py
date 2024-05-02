@@ -91,7 +91,7 @@ def predict_(aud):
         new_knn = pickle.load(file)
     for c,r in features_comb:
         pred_knn = knn_model.predict(c)
-        dic_knn[pred_knn[0]] = dic_knn.get(pred_knn[0],0) + 1
+        dic_knn[genres[pred_knn[0]]] = dic_knn.get(pred_knn[0],0) + 1
 
         pred_new_knn = new_knn.predict(c)
         dic_new_knn[pred_new_knn[0]] = dic_new_knn.get(pred_new_knn[0],0) + 1
