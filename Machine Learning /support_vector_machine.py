@@ -22,7 +22,7 @@ df.label = pd.Categorical(df.label)
 y = np.array(df.label.cat.codes)
 
 clf = make_pipeline(StandardScaler(),
-                    svm.SVC(kernel='rbf', gamma='scale', C=50))
+                    svm.SVC(kernel='rbf', gamma='scale', C=50,probability=True))
 
 clf.fit(X,y)
 
