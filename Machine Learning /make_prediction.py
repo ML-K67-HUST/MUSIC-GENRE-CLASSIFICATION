@@ -7,6 +7,7 @@ import librosa.display
 import warnings
 warnings.filterwarnings('ignore')
 
+from keras.models import load_model
 seed = 42
 np.random.seed(seed)
 
@@ -79,7 +80,7 @@ def analyze_audio(audio_file):
         start = start + 30*sr
     return features_comb
 def predict_(aud):
-    dic_knn, dic_new_knn, dic_ens, dic_svm = {},{},{},{}
+    dic_knn, dic_new_knn, dic_ens, dic_svm, dic_nn, dic_new_nn = {},{},{},{},{},{}
     features_comb = analyze_audio(aud)
     with open('ens_model.pkl','rb') as file:
         ens_model = pickle.load(file)
@@ -89,6 +90,8 @@ def predict_(aud):
         svm_model = pickle.load(file)
     with open('new_knn_model.pkl','rb') as file:
         new_knn = pickle.load(file)
+    nn_model = load_model('nn_model.h5')
+    new_nn_model = load_model('new_net.keras')
     for c,r in features_comb:
         pred_knn = knn_model.predict(c)
         dic_knn[genres[pred_knn[0]]] = dic_knn.get(pred_knn[0],0) + 1
@@ -102,10 +105,19 @@ def predict_(aud):
         pred_svm = svm_model.predict(c)
         dic_svm[genres[pred_svm[0]]] = dic_svm.get(genres[pred_svm[0]],0) + 1
 
+        pred_nn = nn_model.predict(c)
+        dic_nn[genres[np.argmax(pred_nn[0])]] = dic_nn.get(np.argmax(pred_nn[0]),0) + 1
+
+        pred_new_nn = new_nn_model.predict(c)
+        dic_new_nn[genres[np.argmax(pred_new_nn[0])]] = dic_new_nn.get(np.argmax(pred_new_nn[0]),0) + 1
+
     print("KNN's prediction : ",{x:str(round(dic_knn[x]*100/sum(list(dic_knn.values())))) + '%' for x in dic_knn})
     print("New KNN's prediction : ",{x:str(round(dic_new_knn[x]*100/sum(list(dic_new_knn.values())))) + '%' for x in dic_new_knn})
     print("Ensemble method's prediction : ",{x:str(round(dic_ens[x]*100/sum(list(dic_ens.values())))) + '%' for x in dic_ens})
     print("SVM's Prediction : ",{x:str(round(dic_svm[x]*100/sum(list(dic_svm.values())))) + '%' for x in dic_svm})
+    print("Neural Net's Prediction : ",{x:str(round(dic_nn[x]*100/sum(list(dic_nn.values())))) + '%' for x in dic_nn})
+    print("New Net's Prediction : ",{x:str(round(dic_new_nn[x]*100/sum(list(dic_new_nn.values())))) + '%' for x in dic_new_nn})
+
     return 'Finished!'
 
 # import matplotlib.pyplot as plt
