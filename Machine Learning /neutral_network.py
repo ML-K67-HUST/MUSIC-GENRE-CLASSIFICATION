@@ -3,7 +3,6 @@ from sklearn.preprocessing import StandardScaler
 from keras.models import Sequential
 from keras.layers import Dense
 import numpy as np
-import pickle
 
 dataset = pd.read_csv("GTZAN/Data/features_30_sec.csv")
 
@@ -31,5 +30,4 @@ model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=
 
 model.fit(x_scaled, y, epochs=10, batch_size=32, verbose=2)
 
-# with open('nn_model.pkl', 'wb') as file:
-#     pickle.dump(model, file)
+model.save("nn_model.h5")
