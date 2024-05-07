@@ -5,9 +5,13 @@ import pickle
 import librosa
 import librosa.display
 import warnings
+import joblib
 warnings.filterwarnings('ignore')
 
 from keras.models import load_model
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.pipeline import make_pipeline
+
 seed = 42
 np.random.seed(seed)
 
@@ -70,15 +74,19 @@ def extract_features(y, sr):
         features[f'mfcc{i}_mean'] = [mfcc_means[i-1]]
         features[f'mfcc{i}_var'] = [mfcc_vars[i-1]]
     return features
+
 def analyze_audio(audio_file):
     y, sr = librosa.load(audio_file)
     l = len(y)//2
     features_comb = []
     start = 0
     while start + 30*sr < len(y):
-        features_comb.append((extract_features(y[start:start+30*sr],sr),start))
+        scaler = joblib.load('scaler.pkl')
+        feature = scaler.transform(np.array(extract_features(y[start:start+30*sr],sr)))
+        features_comb.append(feature)
         start = start + 30*sr
     return features_comb
+
 def predict_(aud):
     dic_knn, dic_new_knn, dic_ens, dic_svm, dic_nn, dic_new_nn = {},{},{},{},{},{}
     features_comb = analyze_audio(aud)
@@ -92,23 +100,24 @@ def predict_(aud):
         new_knn = pickle.load(file)
     nn_model = load_model('saved_model/nn_model.h5')
     new_nn_model = load_model('saved_model/new_net.keras')
-    for c,r in features_comb:
-        pred_knn = knn_model.predict(c)
+    for feature in features_comb:
+        print(feature)
+        pred_knn = knn_model.predict(feature)
         dic_knn[genres[pred_knn[0]]] = dic_knn.get(pred_knn[0],0) + 1
 
-        pred_new_knn = new_knn.predict(c)
+        pred_new_knn = new_knn.predict(feature)
         dic_new_knn[pred_new_knn[0]] = dic_new_knn.get(pred_new_knn[0],0) + 1
 
-        pred_ens = ens_model.predict(c)
-        dic_ens[pred_ens[0]] = dic_ens.get(pred_ens[0],0) + 1
+        pred_ens = ens_model.predict(feature)
+        dic_ens[genres[pred_ens[0]]] = dic_ens.get(pred_ens[0],0) + 1
 
-        pred_svm = svm_model.predict(c)
+        pred_svm = svm_model.predict(feature)
         dic_svm[genres[pred_svm[0]]] = dic_svm.get(genres[pred_svm[0]],0) + 1
 
-        pred_nn = nn_model.predict(c)
+        pred_nn = nn_model.predict(feature)
         dic_nn[genres[pred_nn[0].argmax(axis=-1)]] = dic_nn.get(pred_nn[0].argmax(axis=-1),0) + 1
 
-        pred_new_nn = new_nn_model.predict(c)
+        pred_new_nn = new_nn_model.predict(feature)
         dic_new_nn[genres[pred_new_nn[0].argmax(axis=-1)]] = dic_new_nn.get(pred_nn[0].argmax(axis=-1),0) + 1
 
     print("KNN's prediction : ",{x:str(round(dic_knn[x]*100/sum(list(dic_knn.values())))) + '%' for x in dic_knn})
@@ -154,5 +163,5 @@ def predict_(aud):
 #     plt.show()
 
 # Call the function to predict and visualize
-audio = '/home/khangpt/MUSIC-GEN-PROJ/GTZAN/Data/genres_original/blues/blues.00003.wav'
+audio = '/home/khangpt/MUSIC-GEN-PROJ/GTZAN/Data/genres_original/classical/classical.00003.wav'
 print(predict_(audio))

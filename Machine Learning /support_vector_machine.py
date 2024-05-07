@@ -1,32 +1,28 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.pipeline import make_pipeline
 from sklearn import svm
 import pickle
+import os
 
+df = pd.read_csv('/home/khangpt/MUSIC-GEN-PROJ/GTZAN/Data/features_30_sec.csv')
+df = df.iloc[0:,1:]
+X = df.drop(['length','label'], axis = 1)
+y = df['label']
 
-dataset = pd.read_csv("GTZAN/Data/features_30_sec.csv")
-
-df = dataset.copy()
-
-non_floats = []
-for col in df.iloc[:,:-1]:
-    if df[col].dtypes != "float64":
-        non_floats.append(col)
-df = df.drop(columns=non_floats)
-
-L = len(df.columns)
-X = df.iloc[:,:L-1].values
 df.label = pd.Categorical(df.label)
 y = np.array(df.label.cat.codes)
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
 
-clf = make_pipeline(StandardScaler(),
-                    svm.SVC(kernel='rbf', gamma='scale', C=50,probability=True))
+
+clf = svm.SVC(kernel='rbf', gamma='scale', C=50,probability=True)
 
 clf.fit(X,y)
 
-with open('svm_model.pkl','wb') as file:
-  pickle.dump(clf, file)
-
+if os.path.exists('saved_model/svm_model.pkl'):
+    os.remove('saved_model/svm_model.pkl')
+with open('saved_model/svm_model.pkl','wb') as file:
+    pickle.dump(clf, file)
 
