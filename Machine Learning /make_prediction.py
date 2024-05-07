@@ -82,16 +82,16 @@ def analyze_audio(audio_file):
 def predict_(aud):
     dic_knn, dic_new_knn, dic_ens, dic_svm, dic_nn, dic_new_nn = {},{},{},{},{},{}
     features_comb = analyze_audio(aud)
-    with open('ens_model.pkl','rb') as file:
+    with open('saved_model/ens_model.pkl','rb') as file:
         ens_model = pickle.load(file)
-    with open('knn_model.pkl','rb') as file:
+    with open('saved_model/knn_model.pkl','rb') as file:
         knn_model = pickle.load(file)
-    with open('svm_model.pkl','rb') as file:
+    with open('saved_model/svm_model.pkl','rb') as file:
         svm_model = pickle.load(file)
-    with open('new_knn_model.pkl','rb') as file:
+    with open('saved_model/new_knn_model.pkl','rb') as file:
         new_knn = pickle.load(file)
-    nn_model = load_model('nn_model.h5')
-    new_nn_model = load_model('new_net.keras')
+    nn_model = load_model('saved_model/nn_model.h5')
+    new_nn_model = load_model('saved_model/new_net.keras')
     for c,r in features_comb:
         pred_knn = knn_model.predict(c)
         dic_knn[genres[pred_knn[0]]] = dic_knn.get(pred_knn[0],0) + 1
@@ -106,10 +106,10 @@ def predict_(aud):
         dic_svm[genres[pred_svm[0]]] = dic_svm.get(genres[pred_svm[0]],0) + 1
 
         pred_nn = nn_model.predict(c)
-        dic_nn[genres[np.argmax(pred_nn[0])]] = dic_nn.get(np.argmax(pred_nn[0]),0) + 1
+        dic_nn[genres[pred_nn[0].argmax(axis=-1)]] = dic_nn.get(pred_nn[0].argmax(axis=-1),0) + 1
 
         pred_new_nn = new_nn_model.predict(c)
-        dic_new_nn[genres[np.argmax(pred_new_nn[0])]] = dic_new_nn.get(np.argmax(pred_new_nn[0]),0) + 1
+        dic_new_nn[genres[pred_new_nn[0].argmax(axis=-1)]] = dic_new_nn.get(pred_nn[0].argmax(axis=-1),0) + 1
 
     print("KNN's prediction : ",{x:str(round(dic_knn[x]*100/sum(list(dic_knn.values())))) + '%' for x in dic_knn})
     print("New KNN's prediction : ",{x:str(round(dic_new_knn[x]*100/sum(list(dic_new_knn.values())))) + '%' for x in dic_new_knn})
@@ -154,5 +154,5 @@ def predict_(aud):
 #     plt.show()
 
 # Call the function to predict and visualize
-audio = 'User Data Test Songs/jazzt.mp3'
+audio = '/home/khangpt/MUSIC-GEN-PROJ/GTZAN/Data/genres_original/blues/blues.00003.wav'
 print(predict_(audio))

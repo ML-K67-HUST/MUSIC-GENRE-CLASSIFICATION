@@ -1,4 +1,4 @@
-# Tai lieu tham khao cho may anh em
+# Tai lieu tham khao 
 
 https://www.tensorflow.org/tutorials/audio/music_generation
 
