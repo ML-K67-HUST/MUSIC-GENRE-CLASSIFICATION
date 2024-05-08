@@ -1,33 +1,33 @@
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from keras.models import Sequential
-from keras.layers import Dense
-import numpy as np
+import os
+from preprocess import preprocess_ 
+import tensorflow as tf
 
-dataset = pd.read_csv("GTZAN/Data/features_30_sec.csv")
+df = pd.read_csv("GTZAN/Data/features_30_sec.csv")
 
-df = dataset.copy()
+X, y = preprocess_(df)
 
-non_floats = []
-for col in df.iloc[:,:-1]:
-    if df[col].dtypes != "float64":
-        non_floats.append(col)
-df = df.drop(columns=non_floats)
 
-L = len(df.columns)
-X = df.iloc[:,:L-1].values
-df.label = pd.Categorical(df.label)
-y = np.array(df.label.cat.codes)
-scaler = StandardScaler()
-x_scaled = scaler.fit_transform(X)
+model = tf.keras.models.Sequential()
+# model.add(tf.keras.layers.Dense(64, activation='relu', input_shape=(X.shape[1],)))
+# model.add(tf.keras.layers.Dense(32, activation='relu'))
+# model.add(tf.keras.layers.Dense(10, activation='softmax'))
 
-model = Sequential()
-model.add(Dense(64, activation='relu', input_shape=(x_scaled.shape[1],)))
-model.add(Dense(32, activation='relu'))
-model.add(Dense(10, activation='softmax'))
+# model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# model.fit(X, y, epochs=10, batch_size=32, verbose=2)
+
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Dense(300, activation='relu'),                                                                      
+    tf.keras.layers.Dense(100, activation='relu'),
+    tf.keras.layers.Dense(10, activation='softmax')
+])
 
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-model.fit(x_scaled, y, epochs=10, batch_size=32, verbose=2)
+model.fit(X, y, epochs=245, batch_size=32, verbose=1)
 
-model.save("nn_model.h5")
+if os.path.exists('saved_model/nn_model.keras'):
+    os.remove('saved_model/nn_model.keras')
+
+model.save('saved_model/nn_model.keras')
