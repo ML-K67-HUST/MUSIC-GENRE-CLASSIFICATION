@@ -129,8 +129,7 @@ import warnings
 
 warnings.filterwarnings('ignore')  # Suppress warnings
 
-app = Flask(__name__)
-
+app = Flask(__name__, template_folder='/home/khangpt/MUSIC-GEN-PROJ')
 # Set the upload folder path (replace with your actual path)
 app.config['UPLOAD_FOLDER'] = '/home/khangpt/MUSIC-GEN-PROJ/user_song'
 app.config['SECRET_KEY'] = '123'  # Required for using sessions
