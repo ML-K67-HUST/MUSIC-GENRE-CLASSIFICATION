@@ -12,7 +12,7 @@ then
 pip install -r requirements.txt
 ~~~
 
-lastly
+last
 
 ~~~
 python app.py 
