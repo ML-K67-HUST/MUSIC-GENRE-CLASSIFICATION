@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Predict Song Genre</title>
+</head>
+<body>
+    <h1>Upload and Predict Song Genre</h1>
+    
+    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file-input">Choose a song to upload:</label>
+        <input type="file" id="file-input" name="file">
+        <button type="submit" id="upload-button">Upload</button>
+    </form>
+    
+    <button id="predict-button">Predict Genre</button>
+    
+    <div id="predictions">
+        </div>
+    
+    <script>
+        // Handle form submission for uploading
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display message indicating successful upload
+                var predictionsDiv = document.getElementById('predictions');
+                predictionsDiv.innerHTML = '<p>Song uploaded successfully!</p>';
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Handle click event for prediction button
+        document.getElementById('predict-button').addEventListener('click', function() {
+            // Send an empty POST request to /predict
+            fetch('/predict', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display predictions
+                var predictionsDiv = document.getElementById('predictions');
+                predictionsDiv.innerHTML = '';
+                for (var i = 0; i < data.length; i++) {
+                    var prediction = data[i];
+                    predictionsDiv.innerHTML += `
+                        <p>Model: ${prediction.model}</p>
+                        <p>Genre: ${prediction.genre}</p>
+                        <hr>
+                    `;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
