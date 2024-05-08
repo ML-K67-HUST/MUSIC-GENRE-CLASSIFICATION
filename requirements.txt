@@ -1,0 +1,12 @@
+pandas==2.1.4
+numpy==1.23.4
+scikit-learn==1.4.2
+lightgbm==4.3.0
+tensorflow==2.16.1
+librosa==0.10.1
+joblib==1.2.0
+matplotlib==3.8.0
+seaborn==0.12.2
+keras==3.3.3
+flask==2.2.5
+werkzeug==2.2.3
