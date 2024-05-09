@@ -43,10 +43,10 @@ def extract_features(y, sr):
         'rolloff_var': [rolloff_var],
         'zero_crossing_rate_mean': [zero_crossing_rate_mean],
         'zero_crossing_rate_var': [zero_crossing_rate_var],
-        'harmony_mean': [harmony_mean.mean()],
-        'harmony_var': [harmony_var.var()],
-        'perceptr_mean': [perceptr_mean.mean()],
-        'perceptr_var': [perceptr_var.var()],
+        'harmony_mean': [harmony_mean],
+        'harmony_var': [harmony_var],
+        'perceptr_mean': [perceptr_mean],
+        'perceptr_var': [perceptr_var],
         'tempo' :[tempo]
     })
 
@@ -77,5 +77,5 @@ def playlist_to_features_csv(directory,genre):
                 df = pd.concat([df, pd.DataFrame(data)], ignore_index=True)
     df['label'] = genre
     # Save the csv file to Music Crawler/CSV/
-    df.to_csv('/content/CSV/crawled_'+genre+'_dataframe.csv')
+    # df.to_csv('/content/CSV/crawled_'+genre+'_dataframe.csv')
     return df
