@@ -47,17 +47,26 @@
             .then(response => response.json())
             .then(data => {
                 // Display predictions
-                var predictionsDiv = document.getElementById('predictions');
+                const predictionsDiv = document.getElementById('predictions');
                 predictionsDiv.innerHTML = '';
-                for (var i = 0; i < data.length; i++) {
-                    var prediction = data[i];
+
+                for (const prediction of data) {
                     predictionsDiv.innerHTML += `
-                        <p>Model: ${prediction.model}</p>
-                        <p>Genre: ${prediction.genre}</p>
-                        <hr>
+                    <p>Model: ${prediction.model}</p>
+                    `;
+
+                    for (const genre in prediction.genre) {
+                    predictionsDiv.innerHTML += `
+                        ${genre}: ${prediction.genre[genre]}<br>
+                    `;
+                    }
+
+                    predictionsDiv.innerHTML += `
+                    <hr>
                     `;
                 }
-            })
+                })
+
             .catch(error => console.error('Error:', error));
         });
     </script>

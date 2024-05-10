@@ -69,10 +69,10 @@ def extract_features(y, sr):
         'rolloff_var': [rolloff_var],
         'zero_crossing_rate_mean': [zero_crossing_rate_mean],
         'zero_crossing_rate_var': [zero_crossing_rate_var],
-        'harmony_mean': [harmony_mean.mean()],
-        'harmony_var': [harmony_var.var()],
-        'perceptr_mean': [perceptr_mean.mean()],
-        'perceptr_var': [perceptr_var.var()],
+        'harmony_mean': [harmony_mean],
+        'harmony_var': [harmony_var],
+        'perceptr_mean': [perceptr_mean],
+        'perceptr_var': [perceptr_var],
         'tempo' :[tempo]
     })
     
@@ -107,73 +107,38 @@ def predict_(aud):
 
     # Make predictions and store them in a list of dictionaries
     predictions = []
+    
+    dic_knn, dic_ens, dic_svm, dic_nn = {}, {}, {}, {}
+
     for feature in features_comb:
-        model_predictions = [
-            {"model": "KNN", "genre": genres[knn_model.predict(feature)[0]]},
-            {"model": "Ensemble", "genre": genres[ens_model.predict(feature)[0]]},
-            {"model": "SVM", "genre": genres[svm_model.predict(feature)[0]]},
-            {"model": "Neural Net", "genre": genres[nn_model.predict(feature)[0].argmax(axis=-1)]}
-        ]
-        predictions.extend(model_predictions)
+
+        knn_pred = genres[knn_model.predict(feature)[0]]
+        ens_pred = genres[ens_model.predict(feature)[0]]
+        svm_pred = genres[svm_model.predict(feature)[0]]
+        nn_pred = genres[nn_model.predict(feature)[0].argmax(axis=-1)]
+
+        dic_knn[knn_pred] = dic_knn.get(knn_pred,0) + 1
+        dic_ens[ens_pred] = dic_ens.get(ens_pred,0) + 1
+        dic_svm[svm_pred] = dic_svm.get(svm_pred,0) + 1
+        dic_nn[nn_pred] = dic_nn.get(nn_pred,0) + 1
+    dic_knn = {x:str(round(dic_knn[x]*100/sum(dic_knn.values()))) + '%' for x in dic_knn}
+    dic_ens = {x:str(round(dic_ens[x]*100/sum(dic_ens.values()))) + '%' for x in dic_ens}
+    dic_svm = {x:str(round(dic_svm[x]*100/sum(dic_svm.values()))) + '%' for x in dic_svm}
+    dic_nn = {x:str(round(dic_nn[x]*100/sum(dic_nn.values()))) + '%' for x in dic_nn}
+
+    predictions.append({'model':'KNN', 'genre':dic_knn})
+    predictions.append({'model':'ENS', 'genre':dic_ens})
+    predictions.append({'model':'SVM', 'genre':dic_svm})
+    predictions.append({'model':'NN', 'genre':dic_nn})
+        # model_predictions = [
+        #     {"model": "KNN", "genre": genres[knn_model.predict(feature)[0]]},
+        #     {"model": "Ensemble", "genre": genres[ens_model.predict(feature)[0]]},
+        #     {"model": "SVM", "genre": genres[svm_model.predict(feature)[0]]},
+        #     {"model": "Neural Net", "genre": genres[nn_model.predict(feature)[0].argmax(axis=-1)]}
+        # ]
 
     return predictions
 
-
-# audio = '/home/khangpt/MUSIC-GEN-PROJ/GTZAN/Data/genres_original/disco/disco.00000.wav'
-# print(predict_(audio))
-
-from flask import Flask, render_template, request, jsonify, session
-import os
-from werkzeug.utils import secure_filename
-import warnings
-
-warnings.filterwarnings('ignore')  # Suppress warnings
-
-app = Flask(__name__, template_folder='/home/khangpt/MUSIC-GEN-PROJ/templates')
-# Set the upload folder path (replace with your actual path)
-app.config['UPLOAD_FOLDER'] = '/home/khangpt/MUSIC-GEN-PROJ/user_song'
-app.config['SECRET_KEY'] = '123'  # Required for using sessions
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file uploaded'}), 400
-
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No file selected'}), 400
-
-    if file:
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
-        # Store filename in session for prediction route (alternative approaches possible)
-        session['uploaded_filename'] = filename
-        return jsonify({'message': 'Song uploaded successfully!'})
-
-    return jsonify({'error': 'Failed to upload file'}), 500
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    # Retrieve uploaded filename (assuming it's stored in session)
-    filename = session.get('uploaded_filename')
-
-    # Alternative: retrieve filename from request object (if not using session)
-    # if not filename:
-    #     filename = request.args.get('filename')  # Assuming filename passed as query param
-
-    if not filename:
-        return jsonify({'error': 'Missing uploaded filename'}), 400
-
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    predictions = predict_(file_path)
-    return jsonify(predictions)
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
+audio = '/home/khangpt/MUSIC-GEN-PROJ/user_song/-mp3convert.org.mp3'
+print(predict_(audio))
 
