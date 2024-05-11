@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Predict Song Genre</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400..800&family=Satisfy&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Upload and Predict Song Genre</h1>
+    
+    <div class="overlay">
+        <div id="box">
+
+            <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                <label id="label-text" for="file-input">Choose a song to upload</label>
+                <input type="file" id="file-input" name="file"><br>
+                <button class="upload-btn" type="submit" id="upload-button"><span>Upload</span></button>
+            </form>
+
+            <button id="predict-button">Predict Genre</button>
+    
+        </div>
+    </div>
+    <!-- The video -->
+    <video autoplay muted loop id="myVideo">
+        <source src="4210523-uhd_3840_2160_24fps.mp4" type="video/mp4">
+    </video>
+    
+    <div id="predictions">
+        </div>
+    
+    <script>
+        // Handle form submission for uploading
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display message indicating successful upload
+                var predictionsDiv = document.getElementById('predictions');
+                predictionsDiv.innerHTML = '<p>Song uploaded successfully!</p>';
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Handle click event for prediction button
+        document.getElementById('predict-button').addEventListener('click', function() {
+            // Send an empty POST request to /predict
+            fetch('/predict', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display predictions
+                const predictionsDiv = document.getElementById('predictions');
+                predictionsDiv.innerHTML = '';
+
+                for (const prediction of data) {
+                    predictionsDiv.innerHTML += `
+                    <p>Model: ${prediction.model}</p>
+                    `;
+
+                    for (const genre in prediction.genre) {
+                    predictionsDiv.innerHTML += `
+                        ${genre}: ${prediction.genre[genre]}<br>
+                    `;
+                    }
+
+                    predictionsDiv.innerHTML += `
+                    <hr>
+                    `;
+                }
+                })
+
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

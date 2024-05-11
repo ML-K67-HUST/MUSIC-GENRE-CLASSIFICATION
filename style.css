@@ -1,0 +1,207 @@
+/* header style */
+h1{
+    text-align: center;
+    position: relative;
+    height: 5vh;
+    color: hsl(0, 0%, 100%);
+    font-size: 5rem;
+    text-shadow: 5px 5px 20px hsl(230, 100%, 50%),
+                -5px -5px 20px hsl(230, 100%, 75%);
+    font-family: "Satisfy", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+#label-text{
+    font-size: 2rem;
+    color: hsl(0, 0%, 100%);
+}
+#box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color:white;
+    font-size: 2em;  
+}
+
+/* upload button style */
+#upload-button{
+    display: inline-block;
+    margin: 20px; 
+    font-size: 20px;
+    position: relative;
+    padding: 17px 35px;
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: #ffffff00;
+    border: 1px solid hsla(0, 0%, 100%, 0.6);
+    border-radius: 10px;
+    color: hsl(0, 0%, 100%);
+    font-family: inherit;
+    z-index: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+#upload-button span {
+    color: hsl(0, 0%, 100%);
+    font-size: 1.1rem;
+}
+#upload-button:hover {
+    animation: rotate624 0.7s ease-in-out both;
+}
+#upload-button:hover span {
+    animation: storm1261 0.7s ease-in-out both;
+    animation-delay: 0.06s;
+}
+@keyframes rotate624 {
+    0% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+  
+    25% {
+      transform: rotate(3deg) translate3d(0, 0, 0);
+    }
+  
+    50% {
+      transform: rotate(-3deg) translate3d(0, 0, 0);
+    }
+  
+    75% {
+      transform: rotate(1deg) translate3d(0, 0, 0);
+    }
+  
+    100% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+}
+@keyframes storm1261 {
+    0% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+  
+    25% {
+      transform: translate3d(4px, 0, 0) translateZ(0);
+    }
+  
+    50% {
+      transform: translate3d(-3px, 0, 0) translateZ(0);
+    }
+  
+    75% {
+      transform: translate3d(2px, 0, 0) translateZ(0);
+    }
+  
+    100% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+}
+.upload-btn {
+    border: 1px solid;
+    overflow: hidden;
+    position: relative;
+}
+.upload-btn span {
+    z-index: 20;
+}
+.upload-btn:after {
+    background: #38ef7d;
+    content: "";
+    height: 155px;
+    left: -75px;
+    opacity: 0.4;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    width: 50px;
+    z-index: -10;
+}
+.upload-btn:hover:after {
+    left: 120%;
+    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+/* predict button style */
+#predict-button {
+    display: inline-block;
+    margin: 20px; 
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    transition: 0.5s;
+    background: hsl(0, 0%, 5%);
+    cursor: pointer;
+    color: hsl(0, 0%, 100%);
+    box-shadow: 0 0 10px hsl(0, 0%, 70%), inset 0 0 10px hsl(230, 100%, 60%);
+    font-family: "Satisfy", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+#predict-button:hover {
+    animation: a 0.5s 1 linear;
+}
+@keyframes a {
+    0% {
+      transform: scale(0.7, 1.3);
+    }
+  
+    25% {
+      transform: scale(1.3, 0.7);
+    }
+  
+    50% {
+      transform: scale(0.7, 1.3);
+    }
+  
+    75% {
+      transform: scale(1.3, 0.7);
+    }
+  
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+#file-input {
+    background-color: hsla(0, 0%, 0%, 0);
+    border: 1px solid hsl(0, 0%, 100%);
+    border-radius: 4px;
+    font-size: 20px;
+    padding: 10px;
+    font-family: "Baloo Da 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50%;
+    height: 50%;
+    z-index: -1;
+    border-radius: 40px;
+    background: linear-gradient(145deg, hsl(0, 0%, 0%), hsl(0, 0%, 15%));
+    box-shadow:  5px 5px 20px hsl(230, 100%, 50%),
+                -5px -5px 20px hsl(230, 100%, 75%);
+    opacity: 97%; 
+    font-family: "Satisfy", cursive;
+    font-weight: 400;
+    font-style: normal;          
+}
+/* background video style */
+#myVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    
+  }
