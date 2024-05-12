@@ -4,20 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload and Predict Song Genre</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400..800&family=Satisfy&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Upload and Predict Song Genre</h1>
     
-    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
-        <label for="file-input">Choose a song to upload:</label>
-        <input type="file" id="file-input" name="file">
-        <button type="submit" id="upload-button">Upload</button>
-    </form>
+    <div class="overlay">
+        <div id="box">
+
+            <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                <label id="label-text" for="file-input">Choose a song to upload</label>
+                <input type="file" id="file-input" name="file"><br>
+                <button class="upload-btn" type="submit" id="upload-button"><span>Upload</span></button>
+            </form>
+
+            <button id="predict-button">Predict Genre</button>
     
-    <button id="predict-button">Predict Genre</button>
-    
-    <div id="predictions">
         </div>
+    </div>
+    <video autoplay muted loop id="myVideo">
+        <source type="video/mp4" src="{{ url_for('static',filename='styles/4210523-uhd_3840_2160_24fps.mp4') }}">
+    </video>
+    
+    <div id="prediction-window" class="hidden">
+        <div id="prediction-header">
+            <h2>Prediction Result</h2>
+        </div>
+        <div id="predictions-content">
+        </div>
+        <button id="close-prediction">Close</button>
+    </div>
+
+
     
     <script>
         // Handle form submission for uploading
@@ -46,28 +67,38 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Display predictions
-                const predictionsDiv = document.getElementById('predictions');
-                predictionsDiv.innerHTML = '';
+                // Prepare prediction content
+                const predictionsContent = document.getElementById('predictions-content');
+                predictionsContent.innerHTML = '';
 
                 for (const prediction of data) {
-                    predictionsDiv.innerHTML += `
+                    predictionsContent.innerHTML += `
                     <p>Model: ${prediction.model}</p>
                     `;
 
                     for (const genre in prediction.genre) {
-                    predictionsDiv.innerHTML += `
+                    predictionsContent.innerHTML += `
                         ${genre}: ${prediction.genre[genre]}<br>
                     `;
                     }
 
-                    predictionsDiv.innerHTML += `
+                    predictionsContent.innerHTML += `
                     <hr>
                     `;
                 }
+
+                // Show prediction window
+                const predictionWindow = document.getElementById('prediction-window');
+                predictionWindow.classList.remove('hidden');
                 })
 
             .catch(error => console.error('Error:', error));
+        });
+
+        // Handle closing prediction window
+        document.getElementById('close-prediction').addEventListener('click', function() {
+            const predictionWindow = document.getElementById('prediction-window');
+            predictionWindow.classList.add('hidden');
         });
     </script>
 </body>
