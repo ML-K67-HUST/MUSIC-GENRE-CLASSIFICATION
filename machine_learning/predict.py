@@ -81,6 +81,7 @@ def extract_features(y, sr):
         features[f'mfcc{i}_mean'] = [mfcc_means[i-1]]
         features[f'mfcc{i}_var'] = [mfcc_vars[i-1]]
     return features
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def analyze_audio(audio_file):
     y, sr = librosa.load(audio_file)
@@ -88,7 +89,7 @@ def analyze_audio(audio_file):
     features_comb = []
     start = 0
     while start + 30*sr < len(y):
-        scaler = joblib.load('saved_model/scaler.pkl')
+        scaler = joblib.load(current_dir.replace('machine_learning','') +'saved_model/scaler.pkl')
         feature = scaler.transform(np.array(extract_features(y[start:start+30*sr],sr)))
         features_comb.append(feature)
         start = start + 30*sr
@@ -97,13 +98,13 @@ def predict_(aud):
     features_comb = analyze_audio(aud)  # Assuming analyze_audio extracts features
 
     # Load pre-trained models
-    with open('saved_model/ens_model.pkl', 'rb') as file:
+    with open(current_dir.replace('machine_learning','') +'saved_model/ens_model.pkl', 'rb') as file:
         ens_model = pickle.load(file)
-    with open('saved_model/knn_model.pkl', 'rb') as file:
+    with open(current_dir.replace('machine_learning','') +'saved_model/knn_model.pkl', 'rb') as file:
         knn_model = pickle.load(file)
-    with open('saved_model/svm_model.pkl', 'rb') as file:
+    with open(current_dir.replace('machine_learning','') +'saved_model/svm_model.pkl', 'rb') as file:
         svm_model = pickle.load(file)
-    nn_model = load_model('saved_model/nn_model.keras')  # Assuming load_model loads the neural network
+    nn_model = load_model(current_dir.replace('machine_learning','') +'saved_model/nn_model.keras')  # Assuming load_model loads the neural network
 
     # Make predictions and store them in a list of dictionaries
     predictions = []
@@ -130,15 +131,6 @@ def predict_(aud):
     predictions.append({'model':'ENS', 'genre':dic_ens})
     predictions.append({'model':'SVM', 'genre':dic_svm})
     predictions.append({'model':'NN', 'genre':dic_nn})
-        # model_predictions = [
-        #     {"model": "KNN", "genre": genres[knn_model.predict(feature)[0]]},
-        #     {"model": "Ensemble", "genre": genres[ens_model.predict(feature)[0]]},
-        #     {"model": "SVM", "genre": genres[svm_model.predict(feature)[0]]},
-        #     {"model": "Neural Net", "genre": genres[nn_model.predict(feature)[0].argmax(axis=-1)]}
-        # ]
 
     return predictions
-
-audio = '/home/khangpt/MUSIC-GEN-PROJ/user_song/-mp3convert.org.mp3'
-print(predict_(audio))
 

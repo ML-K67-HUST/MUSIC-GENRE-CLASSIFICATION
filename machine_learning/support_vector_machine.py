@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from preprocess import preprocess_
-from sklearn.preprocessing import MinMaxScaler
 from sklearn import svm
 import pickle
 import os
