@@ -7,7 +7,7 @@ from machine_learning.predict import predict_
 
 warnings.filterwarnings('ignore')  # Suppress warnings
 
-app = Flask(__name__, template_folder='/home/khangpt/MUSIC-GEN-PROJ/templates')
+app = Flask(__name__)
 # Set the upload folder path (replace with your actual path)
 app.config['UPLOAD_FOLDER'] = '/home/khangpt/MUSIC-GEN-PROJ/user_song'
 app.config['SECRET_KEY'] = '123'  # Required for using sessions
@@ -52,4 +52,4 @@ def predict():
     return jsonify(predictions)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
