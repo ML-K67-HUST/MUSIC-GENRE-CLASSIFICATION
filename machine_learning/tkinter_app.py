@@ -12,6 +12,10 @@ class App(tk.Tk):
         self.title("Music Genre Prediction")
         self.geometry("1000x700")  # Larger window size
 
+        self.checkVar = tk.IntVar(value=1)
+        self.check_button = tk.Checkbutton(self, text="Enable Stack", variable=self.checkVar, onvalue=1, offvalue=0, height=5, width=20)
+        self.check_button.pack()
+
         self.upload_button = tk.Button(self, text="Upload Song", command=self.upload_file, font=("Helvetica", 14))
         self.upload_button.pack(pady=20)
 
@@ -35,16 +39,28 @@ class App(tk.Tk):
             messagebox.showinfo("Success", "Song uploaded successfully!")
 
     def predict(self):
-        if not self.uploaded_file_path:
-            messagebox.showerror("Error", "No file uploaded")
-            return
+        predictions,predictions_stack = predict_(self.uploaded_file_path)
+        if self.checkVar.get() == 1:
+            if not self.uploaded_file_path:
+                messagebox.showerror("Error", "No file uploaded")
+                return
 
-        try:
-            predictions = predict_(self.uploaded_file_path)
-            self.display_results(predictions)
-        except Exception as e:
-            result_text = f"Error: {str(e)}"
-            self.display_results(result_text)
+            try:
+                self.display_results_stack(predictions_stack)
+            except Exception as e:
+                result_text = f"Error: {str(e)}"
+                self.display_results(result_text)
+    
+        else:
+            if not self.uploaded_file_path:
+                messagebox.showerror("Error", "No file uploaded")
+                return
+
+            try:
+                self.display_results(predictions)
+            except Exception as e:
+                result_text = f"Error: {str(e)}"
+                self.display_results(result_text)
     
     def display_results(self, results):
         genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
@@ -74,7 +90,7 @@ class App(tk.Tk):
 
     def draw_histogram(self, results):
         genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
-        colors = ["red", "green", "blue", "orange"]
+        colors = ["red", "green", "blue", "orange","purple"]
 
         num_models = len(results)
         canvas_height = 800
@@ -99,6 +115,61 @@ class App(tk.Tk):
                 self.canvas.create_rectangle(x0, y0, x1, y1, fill=colors[model_idx])
                 self.canvas.create_text(x0 + bar_width // 2, y1 + 30, text=genre, angle=90)
                 self.canvas.create_text(x0 + bar_width // 2, y0 - 10, text=f"{frequency}%", fill=colors[model_idx])
+    def display_results_stack(self, results):
+        genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+        genre_counts = {genre: 0 for genre in genres}
+
+        for model_data in results:
+            for genre, percentage in model_data['genre'].items():
+                genre_counts[genre] += int(percentage.replace('%', ''))
+
+        most_popular_genre = max(genre_counts, key=genre_counts.get)
+        most_popular_percentage = genre_counts[most_popular_genre] / len(results)
+
+        # Display the most popular genre in the result text
+        self.result_text.config(state=tk.NORMAL)
+        self.result_text.delete(1.0, tk.END)
+        if most_popular_percentage >= 80:
+            self.result_text.insert(tk.END, f"It's {most_popular_genre} !\n(Confidence level: {most_popular_percentage:.2f}%)")
+        elif most_popular_percentage >= 50:
+            self.result_text.insert(tk.END, f"{most_popular_genre.capitalize()} ?\n(Confidence level: {most_popular_percentage:.2f}%)")
+        else:
+            self.result_text.insert(tk.END, f"It's strange to me... {most_popular_genre.capitalize()} ?\n(Confidence level: {most_popular_percentage:.2f}%)")
+        self.result_text.tag_add("center", 1.0, "end")
+        self.result_text.tag_configure("center", justify='center', font=("Helvetica", 24, "bold"))
+        self.result_text.config(state=tk.DISABLED)
+        self.canvas.delete("all")
+        self.draw_histogram_stack(results)
+    
+    
+    def draw_histogram_stack(self, results):
+        genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+        colors = "purple"
+
+        num_models = len(results)
+        canvas_height = 800
+        section_height = canvas_height // 2
+        bar_width = 50 
+        spacing = 30
+
+        for model_idx, model_data in enumerate(results):
+            model_name = model_data['model']
+            frequencies = model_data['genre']
+            
+            left_offset = 20
+            top_offset = 20
+            self.canvas.create_text(left_offset, top_offset, text=model_name, anchor='w', fill=colors, font=("Helvetica", 30, "bold"))
+
+            for idx, genre in enumerate(genres):
+                frequency = int(frequencies.get(genre, '0%').replace('%', ''))
+                x0 = 50 + idx * (bar_width + spacing) + left_offset
+                y0 = 40 + top_offset + (section_height - 50) - (frequency * (section_height - 50) // 100) 
+                x1 = x0 + bar_width 
+                y1 = 40 + top_offset + (section_height - 50)
+                self.canvas.create_rectangle(x0, y0, x1, y1, fill=colors)
+                self.canvas.create_text(x0 + bar_width // 2, y1 + 30, text=genre, angle=90)
+                self.canvas.create_text(x0 + bar_width // 2, y0 - 10, text=f"{frequency}%", fill=colors)
+
 
 if __name__ == "__main__":
     app = App()
