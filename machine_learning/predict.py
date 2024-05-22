@@ -132,5 +132,12 @@ def predict_(aud):
     predictions.append({'model':'SVM', 'genre':dic_svm})
     predictions.append({'model':'NN', 'genre':dic_nn})
 
-    return predictions
+    # return predictions
+    formatted_predictions = "\n".join([
+        f"Model: {pred['model']}\n" +
+        "\n".join([f"  {genre}: {percentage}" for genre, percentage in pred['genre'].items()])
+        for pred in predictions
+    ])
+
+    return formatted_predictions
 
