@@ -165,7 +165,11 @@ def predict_(aud):
     # Make predictions and store them in a list of dictionaries
     predictions,predictions_stack = [],[]
     
-    dic_knn, dic_ens, dic_svm, dic_nn, dic_stack = {}, {}, {}, {}, {}
+    dic_knn = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
+    dic_ens = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
+    dic_svm = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
+    dic_nn = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
+    dic_stack = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
     print(np.array(features_comb).reshape(-1,57))
     for feature in features_comb:
 
@@ -203,7 +207,3 @@ def predict_(aud):
     #     for pred in predictions
     # ])
     # return formatted_predictions
-
-
-aud = '/home/khangpt/MUSIC-GEN-PROJ/user_song/ChungTaCuaTuongLai-SonTungMTP-14032595.mp3'
-print(predict_(aud))

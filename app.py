@@ -1,16 +1,19 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import os
-from werkzeug.utils import secure_filename
-import warnings
-
 from machine_learning.predict import predict_
-
-warnings.filterwarnings('ignore')  # Suppress warnings
+import uuid
 
 app = Flask(__name__)
-# Set the upload folder path (replace with your actual path)
-app.config['UPLOAD_FOLDER'] = '/home/khangpt/MUSIC-GEN-PROJ/user_song'
-app.config['SECRET_KEY'] = '123'  # Required for using sessions
+
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'mp3', 'wav'}
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def index():
@@ -18,38 +21,24 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file uploaded'}), 400
-
-    file = request.files['file']
+    if 'music' not in request.files:
+        return redirect(request.url)
+    file = request.files['music']
     if file.filename == '':
-        return jsonify({'error': 'No file selected'}), 400
-
-    if file:
-        filename = secure_filename(file.filename)
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = f"{uuid.uuid4()}_{file.filename}"
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
-        # Store filename in session for prediction route (alternative approaches possible)
-        session['uploaded_filename'] = filename
-        return jsonify({'message': 'Song uploaded successfully!'})
+        return redirect(url_for('predict', filename=filename))
+    return redirect(request.url)
 
-    return jsonify({'error': 'Failed to upload file'}), 500
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    # Retrieve uploaded filename (assuming it's stored in session)
-    filename = session.get('uploaded_filename')
-
-    # Alternative: retrieve filename from request object (if not using session)
-    # if not filename:
-    #     filename = request.args.get('filename')  # Assuming filename passed as query param
-
-    if not filename:
-        return jsonify({'error': 'Missing uploaded filename'}), 400
-
+@app.route('/predict/<filename>')
+def predict(filename):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    predictions = predict_(file_path)
-    return jsonify(predictions)
+    predictions, predictions_stack = predict_(file_path)
+    all_predictions = predictions + predictions_stack
+    return render_template('results.html', results=all_predictions)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=True)
