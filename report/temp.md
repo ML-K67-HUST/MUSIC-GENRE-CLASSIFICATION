@@ -49,7 +49,8 @@ gom: <br>
 Schematically, our stacking ensemble model look like this 
 <br>
 
-![stack1](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/6a0464a1-4837-4de0-bbab-fdc7e3780c06)
+![Screenshot from 2024-05-27 21-55-06](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/7db50b70-3a20-4c3b-b597-fec12b0bedf0)
+
 
 <br>
 	  Properly combined models in a stacked ensemble tend to generalize better to unseen data. This is because the weaknesses of one model are mitigated by the strengths of another, leading to improved performance on test data. The first step involves training several base models (KNN, SVM, NN) on the training data. Each model will generate predictions on this data. These predictions are then used as inputs to a meta-model (also called a second-level model or combiner model, in our work we used Logistic Regression), which learns how to best combine these predictions to make the final decision.
