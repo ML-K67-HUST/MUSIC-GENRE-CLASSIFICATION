@@ -7,20 +7,7 @@ import librosa.display
 import warnings
 import joblib
 
-
-from scikeras.wrappers import KerasClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-from sklearn.ensemble import StackingClassifier
-from sklearn.linear_model import LogisticRegression
-
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Input
-
 from keras.models import load_model # type: ignore
-import scikeras
-
 import os
 import warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress TensorFlow warnings
@@ -38,20 +25,8 @@ hop_length = 512
 n_fft = 2048
 
 genres = ["blues","classical","country","disco","hiphop","jazz","metal","pop","reggae","rock"]
-def create_nn(num_layers=3, num_neurons=100, learning_rate=0.001):
-    model = Sequential()
-    model.add(Input(shape=(57,)))
-    for _ in range(num_layers):
-        model.add(Dense(num_neurons, activation='relu'))
-    model.add(Dense(10, activation='softmax'))
-    adam = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-    model.compile(optimizer=adam,
-                  loss="sparse_categorical_crossentropy",
-                  metrics=["accuracy"])
-    return model
 
 # Function to extract features from audio file
-
 def extract_features(y, sr):
     # Extract features
     chroma_stft_mean = librosa.feature.chroma_stft(y=y, sr=sr, hop_length=hop_length).mean()
@@ -135,6 +110,7 @@ def predict_(aud):
     dic_svm = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
     dic_nn = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
     dic_stack = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
+    print(np.array(features_comb).reshape(-1,57))
     for feature in features_comb:
 
         knn_pred = genres[knn_model.predict(feature)[0]]
@@ -144,6 +120,7 @@ def predict_(aud):
         dic_knn[knn_pred] = dic_knn.get(knn_pred,0) + 1
         dic_svm[svm_pred] = dic_svm.get(svm_pred,0) + 1
         dic_nn[nn_pred] = dic_nn.get(nn_pred,0) + 1
+
     stack_pred = stack.predict(np.array(features_comb).reshape(-1,57))
     for p in stack_pred:
         dic_stack[genres[p]] = dic_stack.get(genres[p],0) + 1
