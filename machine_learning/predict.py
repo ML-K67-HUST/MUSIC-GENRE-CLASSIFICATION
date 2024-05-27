@@ -19,7 +19,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Input
 
 from keras.models import load_model # type: ignore
-from sklearn.preprocessing import MinMaxScaler
+import scikeras
 
 import os
 import warnings
@@ -38,51 +38,18 @@ hop_length = 512
 n_fft = 2048
 
 genres = ["blues","classical","country","disco","hiphop","jazz","metal","pop","reggae","rock"]
-def preprocess_(df):
-    df = df.iloc[0:,1:]
-    X = df.drop(['length','label'], axis = 1)
-    y = df['label']
+def create_nn(num_layers=3, num_neurons=100, learning_rate=0.001):
+    model = Sequential()
+    model.add(Input(shape=(57,)))
+    for _ in range(num_layers):
+        model.add(Dense(num_neurons, activation='relu'))
+    model.add(Dense(10, activation='softmax'))
+    adam = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+    model.compile(optimizer=adam,
+                  loss="sparse_categorical_crossentropy",
+                  metrics=["accuracy"])
+    return model
 
-    df.label = pd.Categorical(df.label)
-    y = np.array(df.label.cat.codes)
-    scaler = MinMaxScaler()
-    X = scaler.fit_transform(X)
-    return X, y
-
-def stack_ens():
-    X, y = preprocess_(pd.read_csv('/home/khangpt/MUSIC-GEN-PROJ/GTZAN/Data/features_30_sec.csv'))
-    def create_nn(num_layers=3, num_neurons=100, learning_rate=0.001):
-        model = Sequential()
-        model.add(Input(shape=(57,)))
-        for _ in range(num_layers):
-            model.add(Dense(num_neurons, activation='relu'))
-        model.add(Dense(10, activation='softmax'))
-        adam = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-        model.compile(optimizer=adam,
-                    loss="sparse_categorical_crossentropy",
-                    metrics=["accuracy"])
-        return model
-
-    # Define the KNN classifier
-    KNN = KNeighborsClassifier(n_neighbors=8,weights="distance")
-
-    # Define the SVM classifier
-    SVM = SVC(kernel='rbf', gamma='scale',C=8.4, probability=True)
-
-    # Define the neural network model
-    NN = KerasClassifier(model=create_nn,batch_size=64,epochs=150, verbose=0)
-
-    # Define the base models
-    base_models = [('knn', KNN), ('svm', SVM), ('nn', NN)]
-
-    # Define the stacking ensemble model
-    stack = StackingClassifier(
-        estimators=base_models,
-        final_estimator=LogisticRegression(),
-        passthrough=True,
-    )
-    stack.fit(X,y)
-    return stack
 # Function to extract features from audio file
 
 def extract_features(y, sr):
@@ -153,33 +120,28 @@ def predict_(aud):
     features_comb = analyze_audio(aud)  # Assuming analyze_audio extracts features
 
     # Load pre-trained models
-    with open(current_dir.replace('machine_learning','') +'saved_model/ens_model.pkl', 'rb') as file:
-        ens_model = pickle.load(file)
+    with open(current_dir.replace('machine_learning','') +'saved_model/stack_model.pkl', 'rb') as file:
+        stack = pickle.load(file)
     with open(current_dir.replace('machine_learning','') +'saved_model/knn_model.pkl', 'rb') as file:
         knn_model = pickle.load(file)
     with open(current_dir.replace('machine_learning','') +'saved_model/svm_model.pkl', 'rb') as file:
         svm_model = pickle.load(file)
     nn_model = load_model(current_dir.replace('machine_learning','') +'saved_model/nn_model.keras')  # Assuming load_model loads the neural network
 
-    stack = stack_ens()
     # Make predictions and store them in a list of dictionaries
     predictions,predictions_stack = [],[]
     
     dic_knn = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
-    dic_ens = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
     dic_svm = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
     dic_nn = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
     dic_stack = {"blues":0,"classical":0,"country":0,"disco":0,"hiphop":0,"jazz":0,"metal":0,"pop":0,"reggae":0,"rock":0}
-    print(np.array(features_comb).reshape(-1,57))
     for feature in features_comb:
 
         knn_pred = genres[knn_model.predict(feature)[0]]
-        ens_pred = genres[ens_model.predict(feature)[0]]
         svm_pred = genres[svm_model.predict(feature)[0]]
         nn_pred = genres[nn_model.predict(feature)[0].argmax(axis=-1)]
 
         dic_knn[knn_pred] = dic_knn.get(knn_pred,0) + 1
-        dic_ens[ens_pred] = dic_ens.get(ens_pred,0) + 1
         dic_svm[svm_pred] = dic_svm.get(svm_pred,0) + 1
         dic_nn[nn_pred] = dic_nn.get(nn_pred,0) + 1
     stack_pred = stack.predict(np.array(features_comb).reshape(-1,57))
@@ -188,14 +150,12 @@ def predict_(aud):
     
 
     dic_knn = {x:str(round(dic_knn[x]*100/sum(dic_knn.values()))) + '%' for x in dic_knn}
-    dic_ens = {x:str(round(dic_ens[x]*100/sum(dic_ens.values()))) + '%' for x in dic_ens}
     dic_svm = {x:str(round(dic_svm[x]*100/sum(dic_svm.values()))) + '%' for x in dic_svm}
     dic_nn = {x:str(round(dic_nn[x]*100/sum(dic_nn.values()))) + '%' for x in dic_nn}
     dic_stack = {x:str(round(dic_stack[x]*100/sum(dic_stack.values()))) + '%' for x in dic_stack}
 
 
     predictions.append({'model':'KNN', 'genre':dic_knn})
-    predictions.append({'model':'ENS', 'genre':dic_ens})
     predictions.append({'model':'SVM', 'genre':dic_svm})
     predictions.append({'model':'NN', 'genre':dic_nn})
     predictions_stack.append({'model':'Stack', 'genre':dic_stack})
