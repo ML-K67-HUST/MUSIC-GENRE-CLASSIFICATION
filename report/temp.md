@@ -27,6 +27,7 @@ Keywords: music genre classification, machine learning, feature engineering, ens
 ## II. Data Preparation 
 ### 2.1 Data Collection <br>
 // Khang viet
+
 ### 2.2 Data Preprocessing <br>
 // Kien viet
 ### 2.3 Data Exploration <br>
@@ -39,6 +40,37 @@ gom: <br>
 ### 3.2 SVM
 ### 3.3 NEURAL-NET
 ### 3.4 ENSEMBLE: STACKING
+<p>
+    Now we already have three different models: K-Nearest Neighbors (KNN), Support Vector Machine (SVM), and a Neural Network (NN). Each of these models possesses unique characteristics that make them suitable for different types of data and learning tasks. KNN excels in capturing local patterns, SVM thrives in high-dimensional spaces, while NN can model complex, non-linear relationships. By combining these independent models, stacking leverages their complementary strengths to produce more robust predictions.
+</p>
+<p>
+    By combining these models, stacking takes advantage of their diverse strengths. While KNN might excel in one part of the data, SVM might perform better in another, and NN might capture intricate patterns missed by the others. This diversity helps in covering different aspects of the data distribution, leading to a reduction in overall error. Individual models might suffer from high bias (underfitting) or high variance (overfitting). Stacking helps balance these issues by averaging out the errors of individual models. For instance, a high-bias model can be compensated by a low-bias but high-variance model, and vice versa..
+</p>
+Schematically, our stacking ensemble model look like this 
+<br>
+![image](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/70d303f9-aa48-422d-a55b-b157c0c69158)
+<br>
+	  Properly combined models in a stacked ensemble tend to generalize better to unseen data. This is because the weaknesses of one model are mitigated by the strengths of another, leading to improved performance on test data. The first step involves training several base models (KNN, SVM, NN) on the training data. Each model will generate predictions on this data. These predictions are then used as inputs to a meta-model (also called a second-level model or combiner model, in our work we used Logistic Regression), which learns how to best combine these predictions to make the final decision.
+</p>
+<br>
+![download](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/b68b54f3-3e38-4e54-8382-23ecff14bf00)
+<br>
+<p>    
+    To avoid overfitting, the training of the meta-model typically involves a cross-validation procedure (Instead of fitting the whole dataset for each base models). It split the training data into k-folds, train each base model on k-1 folds, and make predictions on the remaining fold. Collect the out-of-fold predictions for each base model. These predictions form a new dataset, which is then used to train the meta-model. When making predictions on new data, each base model makes a prediction, and these predictions are then used as inputs to the meta-model, which produces the final prediction.
+</p>
+<br>
+![download](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/30fc2e54-97d7-48e4-afce-284b902ab90d)
+
+<br>
+<p>
+  We set pass_through=True, now the final meta-model not only learns from the predictions of the base models but also has access to the original features. This can potentially improve the performance of the stacked ensemble model by providing more information to the final meta-model for making decisions.
+</p>
+<br>
+![download](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/e07cdcf1-881d-476b-9817-e43cf8800c51)
+<br>
+<p>
+	  By combining the strengths of each model,we expect stacking creates a robust predictive model that is typically more accurate than any of the individual models alone. 
+</p>
 ## IV. Evaluation 
 ### 4.1 Metrics (Kien viet)
 - Accuracy
