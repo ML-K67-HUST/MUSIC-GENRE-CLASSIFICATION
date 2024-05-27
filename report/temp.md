@@ -49,14 +49,14 @@ gom: <br>
 Schematically, our stacking ensemble model look like this 
 <br>
 
-![stack1](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/7f8ed030-770d-4fd4-b23e-24563a0133c6)
+![stack1](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/6a0464a1-4837-4de0-bbab-fdc7e3780c06)
 
 <br>
 	  Properly combined models in a stacked ensemble tend to generalize better to unseen data. This is because the weaknesses of one model are mitigated by the strengths of another, leading to improved performance on test data. The first step involves training several base models (KNN, SVM, NN) on the training data. Each model will generate predictions on this data. These predictions are then used as inputs to a meta-model (also called a second-level model or combiner model, in our work we used Logistic Regression), which learns how to best combine these predictions to make the final decision.
 </p>
 <br>
 
-![stack2](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/21978e35-0eb1-4874-80f9-d85a7230c4c1)
+![Screenshot from 2024-05-27 21-52-08](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/d6897c33-efc9-42e9-b424-b24484863b82)
 
 <br>
 <p>    
@@ -64,7 +64,7 @@ Schematically, our stacking ensemble model look like this
 </p>
 <br>
 
-![stack3](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/e121f16a-1972-4c93-a7f7-0b454320347b)
+![stack3](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/f603ce43-e78d-4f52-8c00-a34c92e4b21a)
 
 <br>
 <p>
@@ -72,7 +72,8 @@ Schematically, our stacking ensemble model look like this
 </p>
 <br>
 
-![stack4](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/a88a1ae2-8736-49df-9411-ac7cc62f3308)
+![stack4](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/b76cc780-8d03-4350-a9f0-95134a504065)
+
 
 <br>
 <p>
