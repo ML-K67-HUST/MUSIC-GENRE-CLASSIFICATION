@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/qta_style.css"/>
+    <link rel="shortcut icon" href="/image/Logo.ico" type="image/x-icon"/>
+</head>
+<body> 
+    <header>
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo">
+                    <img src="/image/Logo.svg" alt="Logo" width="135px"/>
+                </a>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Contact</a>
+                    </li>
+            </div>
+        </nav>
+    </header>
+    <!-- Hero -->
+    <section class="hero">
+        <hr style="width:1100px; margin:auto;" />
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-heading-1">Genres</h1>
+                <h1 class="hero-heading-2">discover your sound</h1>
+                <p class="hero-text">
+                    With cutting-edge technologies, we make music classification<br> effortless and precise.
+                </p>
+                <a href="#feature" class="btn btn-primary">Getting Started</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="slider">
+                <div class="slide-track">
+                    <div class="frame1">
+                        <img class="image" src="/image/Photo.svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (1).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (2).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (3).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (4).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame1">
+                        <img class="image" src="/image/Photo (5).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame1">
+                        <img class="image" src="/image/Photo.svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (1).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (2).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (3).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (4).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame1">
+                        <img class="image" src="/image/Photo (5).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame1">
+                        <img class="image" src="/image/Photo.svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (1).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (2).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (3).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame">
+                        <img class="image" src="/image/Photo (4).svg" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="frame1">
+                        <img class="image" src="/image/Photo (5).svg" alt="" width="100%" height="100%" />
+                    </div>
+                </div>
+            </div>
+            <img class="curve" src="/image/Curve.svg" alt="" width="100%" height="750px" />
+        </div>
+    </section>
+    <img src="/image/Scroll Down.svg" class="scroll-down" width="180px"/>
+    <!-- Features -->
+    <section clas="feature" id="feature">
+        <div class="feature-container">
+            <h2 class="feature-heading">Upload your music</h2>
+            <div class="upload-zone" id="drop-area">
+                <img src="/image/Subtract (1).svg" class="music-icon"/>
+                <form action="#" method="post" enctype="multipart/form-data">
+                    <input type="file" id="file-upload" class="file-upload" name="music" accept="audio/*"/>
+                    <div class="upload-music">
+                    <label for="file-upload" class="upload-label">Choose file</label>
+                        <div class="btn-predict">
+                            <button type="submit" class="btn-upload"><img src="/image/arrow-narrow-right.svg" width="35px"></button>
+                        </div>
+                    </div>
+                    <label for="file-upload" class="upload-text"><p>or drag file here</p></label>
+                </form>
+            </div>
+            <div class="result-zone" id="result-zone">
+                <h3 class="result-heading">Result</h3>
+                <div class="color-zone"></div>
+            </div>
+        </div>
+    </section>
+    <!--About-->
+    <section class="about">
+        <div class="about-container">
+            <div class="about-content-1">
+                <h2 class="about-heading">About Us</h2>
+                <p class="short-introduction">Dedicated and experienced. Located in the heart of Vietnam,<br> we are a May Thang ML.</p>
+                <a href="#footer" class="btn btn-primary">Join our team</a>
+            </div>
+            <div class="about-container-2">
+                <div class="left-section">
+                    <div class="about-content-2-1">
+                        <p><h3 class="why-genres">Why</h3><img src="/image/Logo.svg" alt="Logo-2" width="135px"/></p>
+                    </div>
+                    <div class="about-content-2-2">
+                        <p class="answer">An advanced music genre classification <br>system, delivering precise and seamless <br>categorization for music enthusiasts and <br>professionals alike.</p>
+                        <img src="/image/Photo1.png" alt="about-image-1" width="450px"/>
+                    </div>
+                </div>
+                <div class="right-section">
+                    <div class="about-content-3">
+                        <h4 class="question">Who we are</h4>
+                        <p class="question-text">A bunch of young, caffeine-fueled enthusiasts from Hanoi, Vietnam. 
+                            On a mission to build a better world.</p>
+                    </div>
+                    <div class="about-content-3">
+                        <h4 class="question">What we do</h4>
+                        <p class="question-text">Amazing stuffs like this one, Genres
+                            and a lot incoming!</p>
+                    </div>
+                    <div class="about-content-3">
+                        <h4 class="question">How to join us</h4>
+                        <p class="question-text">We’re always looking for new fellows. Interest? Just hit the “Join” button above!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Footer-->
+    <section class="footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <h3 class="contact-us">Contact Us</h3>
+                <div class="footer-section">
+                    <div class="left-section">
+                        <div class="footer-text">
+                            <p>anhquachtuan.fw@gmail.com</p>
+                            <p>(+84) 394148637</p>
+                            <p>Hanoi University of Science and Technology</p>
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <div class="footer-logo">
+                            <a href="https://www.facebook.com/qta1602" target="_blank" class="icon-spacing"><span style="color: white;"><i class="fab fa-facebook-f fa-2x icon-spacing"></i></span></a>
+                            <a href="https://github.com/ML-K67-HUST" target="_blank" class="icon-spacing"><span style="color: white;"><i class="fab fa-github fa-2x icon-spacing"></i></span></a>
+                            <a href="https://www.linkedin.com/in/anh-tu%E1%BA%A5n-6183b2247/" target="_blank" class="icon-spacing"><span style="color: white;"><i class="fab fa-linkedin-in fa-2x icon-spacing"></i></span></a>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <p class="copyright">Copyright © Genres | Designed by May Thang ML - Powered by May Thang ML.</p>
+            </div>
+        </div>
+    </section>
+    <script>
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                navbar.style.top = '-130px';
+            } else {
+                navbar.style.top = '0';
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
+    <script src="/js/qta_main.js"></script>
+</body>
+</html>
