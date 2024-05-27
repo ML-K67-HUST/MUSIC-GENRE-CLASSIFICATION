@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import os
 from machine_learning.predict import predict_
-from machine_learning.predict import create_nn
 import uuid
 
 app = Flask(__name__)
