@@ -1,6 +1,9 @@
 # Noi dung report o day
 ## Acknowledgement <br>
 // Tuan Anh Viet
+<p>
+We would like to express my sincere gratitude to our Professor Khoat Than Quang for his invaluable guidance and support throughout the duration of this Music Genre Classification project. His expertise and encouragement were instrumental in the successful completion of the research.
+</p>
 
 ## Abstract <br>
 //Khang viet
