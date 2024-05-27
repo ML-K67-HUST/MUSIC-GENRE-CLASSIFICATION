@@ -48,29 +48,37 @@ gom: <br>
 </p>
 Schematically, our stacking ensemble model look like this 
 <br>
-![image](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/70d303f9-aa48-422d-a55b-b157c0c69158)
+
+![stack1](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/7f8ed030-770d-4fd4-b23e-24563a0133c6)
+
 <br>
 	  Properly combined models in a stacked ensemble tend to generalize better to unseen data. This is because the weaknesses of one model are mitigated by the strengths of another, leading to improved performance on test data. The first step involves training several base models (KNN, SVM, NN) on the training data. Each model will generate predictions on this data. These predictions are then used as inputs to a meta-model (also called a second-level model or combiner model, in our work we used Logistic Regression), which learns how to best combine these predictions to make the final decision.
 </p>
 <br>
-![download](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/b68b54f3-3e38-4e54-8382-23ecff14bf00)
+
+![stack2](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/21978e35-0eb1-4874-80f9-d85a7230c4c1)
+
 <br>
 <p>    
     To avoid overfitting, the training of the meta-model typically involves a cross-validation procedure (Instead of fitting the whole dataset for each base models). It split the training data into k-folds, train each base model on k-1 folds, and make predictions on the remaining fold. Collect the out-of-fold predictions for each base model. These predictions form a new dataset, which is then used to train the meta-model. When making predictions on new data, each base model makes a prediction, and these predictions are then used as inputs to the meta-model, which produces the final prediction.
 </p>
 <br>
-![download](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/30fc2e54-97d7-48e4-afce-284b902ab90d)
+
+![stack3](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/e121f16a-1972-4c93-a7f7-0b454320347b)
 
 <br>
 <p>
   We set pass_through=True, now the final meta-model not only learns from the predictions of the base models but also has access to the original features. This can potentially improve the performance of the stacked ensemble model by providing more information to the final meta-model for making decisions.
 </p>
 <br>
-![download](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/e07cdcf1-881d-476b-9817-e43cf8800c51)
+
+![stack4](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/assets/112315454/a88a1ae2-8736-49df-9411-ac7cc62f3308)
+
 <br>
 <p>
 	  By combining the strengths of each model,we expect stacking creates a robust predictive model that is typically more accurate than any of the individual models alone. 
 </p>
+
 ## IV. Evaluation 
 ### 4.1 Metrics (Kien viet)
 - Accuracy
