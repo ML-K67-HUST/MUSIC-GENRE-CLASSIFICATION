@@ -40,11 +40,14 @@ gom: <br>
 - Visualization: Creating plots and charts to visually inspect the data distributions, patterns, and anomalies.
 ## III. Modelling 
 ### 3.1 KNN
+<p>
+The first approach to our Music Genre Classification project is K-Nearest Neighbors (KNN), a non-parametric, supervised learning classifier which use proximity to make classifications about the grouping of an individual data point. Due to its simplicity and adaptibility, choosing KNN helps establishing a strong baseline for the understanding of music data and futre implementations of more sophisticated models. 
+ </p>
 ### 3.2 SVM
 ### 3.3 NEURAL-NET
 ### 3.4 ENSEMBLE: STACKING
 <p>
-    Now we already have three different models: K-Nearest Neighbors (KNN), Support Vector Machine (SVM), and a Neural Network (NN). Each of these models possesses unique characteristics that make them suitable for different types of data and learning tasks. KNN excels in capturing local patterns, SVM thrives in high-dimensional spaces, while NN can model complex, non-linear relationships. By combining these independent models, stacking leverages their complementary strengths to produce more robust predictions.
+Now we already have three different models: K-Nearest Neighbors (KNN), Support Vector Machine (SVM), and a Neural Network (NN). Each of these models possesses unique characteristics that make them suitable for different types of data and learning tasks. KNN excels in capturing local patterns, SVM thrives in high-dimensional spaces, while NN can model complex, non-linear relationships. By combining these independent models, stacking leverages their complementary strengths to produce more robust predictions.
 </p>
 <p>
     By combining these models, stacking takes advantage of their diverse strengths. While KNN might excel in one part of the data, SVM might perform better in another, and NN might capture intricate patterns missed by the others. This diversity helps in covering different aspects of the data distribution, leading to a reduction in overall error. Individual models might suffer from high bias (underfitting) or high variance (overfitting). Stacking helps balance these issues by averaging out the errors of individual models. For instance, a high-bias model can be compensated by a low-bias but high-variance model, and vice versa..
