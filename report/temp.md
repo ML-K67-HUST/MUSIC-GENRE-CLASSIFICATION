@@ -107,15 +107,15 @@ Schematically, our stacking ensemble model look like this
 - Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 2nd Edition by Aurélien Géron - Released September, published on 2019, 39-129.
 - Article Medium.
 
-[1] Sturm, Bob L. "The GTZAN dataset: Its contents, its faults, their effects on evaluation, and its future use." _arXiv preprint arXiv:1306.1461_ (2013).
-[2] Ghosh, Partha & Mahapatra, Soham & Jana, Subhadeep & Jha, Ritesh. (2023). A Study on Music Genre Classification using Machine Learning. International Journal of Engineering Business and Social Science. 1. 308-320. 10.58451/ijebss.v1i04.55. 
-[3] A. Sandra Grace, "Song and Artist Attributes Analysis For Spotify," 2022 International Conference on Engineering and Emerging Technologies (ICEET), Kuala Lumpur, Malaysia, 2022, pp. 1-6, doi: 10.1109/ICEET56468.2022.10007360. keywords: {Deep learning;Data analysis;Terminology;Data visualization;Companies;Metadata;Media;Spotify;Spotify Web API;Attributes;Machine learning;Data visualization;Audio Features},
-[4] Andrana, "Work w/ Audio Data: Visualise, Classify, Recommend"  notebook on Kaggle
-[5] McFee, Brian & Raffel, Colin & Liang, Dawen & Ellis, Daniel & Mcvicar, Matt & Battenberg, Eric & Nieto, Oriol. (2015). librosa: Audio and Music Signal Analysis in Python. 18-24. 10.25080/Majora-7b98e3ed-003. 
-[6] Lucas B.V. de Amorim, George D.C. Cavalcanti, Rafael M.O. Cruz. The choice of scaling technique matters for classification performance (23 Dec 2022)
-[7] Yu, Tong, and Hong Zhu. "Hyper-parameter optimization: A review of algorithms and applications." _arXiv preprint arXiv:2003.05689_ (2020).
-[8] Alexandropoulos, Stamatios-Aggelos & Aridas, Christos & Kotsiantis, Sotiris & Vrahatis, Michael. (2019). Stacking Strong Ensembles of Classifiers. 10.1007/978-3-030-19823-7_46. 
-[9] Hossin, Mohammad & M.N, Sulaiman. (2015). A Review on Evaluation Metrics for Data Classification Evaluations. International Journal of Data Mining & Knowledge Management Process. 5. 01-11. 10.5121/ijdkp.2015.5201. 
+[1] Sturm, Bob L. "The GTZAN dataset: Its contents, its faults, their effects on evaluation, and its future use." _arXiv preprint arXiv:1306.1461_ (2013).<br>
+[2] Ghosh, Partha & Mahapatra, Soham & Jana, Subhadeep & Jha, Ritesh. (2023). A Study on Music Genre Classification using Machine Learning. International Journal of Engineering Business and Social Science. 1. 308-320. 10.58451/ijebss.v1i04.55.<br>
+[3] A. Sandra Grace, "Song and Artist Attributes Analysis For Spotify," 2022 International Conference on Engineering and Emerging Technologies (ICEET), Kuala Lumpur, Malaysia, 2022, pp. 1-6, doi: 10.1109/ICEET56468.2022.10007360. keywords: {Deep learning;Data analysis;Terminology;Data visualization;Companies;Metadata;Media;Spotify;Spotify Web API;Attributes;Machine learning;Data visualization;Audio Features},<br>
+[4] Andrana, "Work w/ Audio Data: Visualise, Classify, Recommend"  notebook on Kaggle <br>
+[5] McFee, Brian & Raffel, Colin & Liang, Dawen & Ellis, Daniel & Mcvicar, Matt & Battenberg, Eric & Nieto, Oriol. (2015). librosa: Audio and Music Signal Analysis in Python. 18-24. 10.25080/Majora-7b98e3ed-003.<br>
+[6] Lucas B.V. de Amorim, George D.C. Cavalcanti, Rafael M.O. Cruz. The choice of scaling technique matters for classification performance (23 Dec 2022)<br>
+[7] Yu, Tong, and Hong Zhu. "Hyper-parameter optimization: A review of algorithms and applications." _arXiv preprint arXiv:2003.05689_ (2020).<br>
+[8] Alexandropoulos, Stamatios-Aggelos & Aridas, Christos & Kotsiantis, Sotiris & Vrahatis, Michael. (2019). Stacking Strong Ensembles of Classifiers. 10.1007/978-3-030-19823-7_46. <br>
+[9] Hossin, Mohammad & M.N, Sulaiman. (2015). A Review on Evaluation Metrics for Data Classification Evaluations. International Journal of Data Mining & Knowledge Management Process. 5. 01-11. 10.5121/ijdkp.2015.5201. <br>
 [10] Bates, Stephen, Trevor Hastie, and Robert Tibshirani. "Cross-validation: what does it estimate and how well does it do it?." _Journal of the American Statistical Association_ (2023): 1-12.
 
 
