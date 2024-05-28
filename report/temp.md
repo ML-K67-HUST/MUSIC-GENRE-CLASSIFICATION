@@ -43,6 +43,7 @@ gom: <br>
 <p>
 The first approach to our Music Genre Classification project is K-Nearest Neighbors (KNN), a non-parametric, supervised learning classifier which use proximity to make classifications about the grouping of an individual data point. Due to its simplicity and adaptibility, choosing KNN helps establishing a strong baseline for the understanding of music data and futre implementations of more sophisticated models. 
  </p>
+ 
 ### 3.2 SVM
 ### 3.3 NEURAL-NET
 ### 3.4 ENSEMBLE: STACKING
