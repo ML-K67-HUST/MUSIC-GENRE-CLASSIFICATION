@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible"="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             width: 90%;
-            max-width: 800px;
+            max-width: 1500px;
             margin: 20px;
         }
         h2 {
@@ -34,7 +34,7 @@
         }
         .chart-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 1500px;
             margin: 20px auto;
         }
         canvas {
@@ -58,14 +58,30 @@
 <body>
     <div class="container">
         <h2>Prediction Results</h2>
+        <p>{{ confidence_message }}</p>
+        <p>Confidence level: {{ confidence }}%</p>
         <div id="chart-results"></div>
-        <a href="/" class="btn btn-primary">Go Back</a>
+        <a href="/" class="btn btn-primary">Make your next prediction</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const results = {{ results|tojson }};
             const chartResultsDiv = document.getElementById("chart-results");
+
+            const colors = [
+                'rgba(60, 179, 113, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(106, 90, 205, 0.2)',
+            ];
+
+            const borderColors = [
+                'rgba(60, 179, 113, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(106, 90, 205, 1)',
+            ];
 
             results.forEach((prediction, index) => {
                 const chartContainer = document.createElement("div");
@@ -85,18 +101,28 @@
                         datasets: [{
                             label: prediction.model,
                             data: percentages,
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: colors[index % colors.length],
+                            borderColor: borderColors[index % borderColors.length],
                             borderWidth: 1,
-                            hoverBackgroundColor: 'rgba(75, 192, 192, 0.5)',
+                            hoverBackgroundColor: colors[index % colors.length].replace('0.2', '0.5')
                         }]
                     },
                     options: {
                         scales: {
+                            x: {
+                                ticks: {
+                                    font: {
+                                        size: 30
+                                    }
+                                }
+                            },
                             y: {
                                 beginAtZero: true,
                                 max: 100,
                                 ticks: {
+                                    font: {
+                                        size: 30
+                                    },
                                     callback: function(value) {
                                         return value + "%";
                                     }
@@ -110,7 +136,7 @@
                                     font: {
                                         family: 'Outfit',
                                         weight: 'bold',
-                                        size: 16
+                                        size: 50
                                     }
                                 }
                             }

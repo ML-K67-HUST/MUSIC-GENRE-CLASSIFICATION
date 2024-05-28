@@ -13,26 +13,26 @@
 </head>
 <body> 
     <header>
-        <nav class="navbar" id="navbar">
+        <nav class="navbar" id="navbar">x
             <div class="nav-container">
-                <a href="index.html" class="nav-logo">
+                <a href="#hero" class="nav-logo">
                     <img src="/static/styles/Logo.svg" alt="Logo" width="135px"/>
                 </a>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="#hero" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">About</a>
+                        <a href="#about" class="nav-link">About</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Contact</a>
+                        <a href="#footer" class="nav-link">Contact</a>
                     </li>
             </div>
         </nav>
     </header>
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <hr style="width:1100px; margin:auto;" />
         <div class="hero-container">
             <div class="hero-content">
@@ -118,10 +118,43 @@
                     <div class="upload-music">
                     <label for="file-upload" class="upload-label">Choose file</label>
                         <div class="btn-predict">
-                            <button type="submit" class="btn-upload"><img src="/static/styles/arrow-narrow-right.svg" width="35px"></button>
+                            <button type="submit" class="btn-upload"><img src="/static/styles/arrow-narrow-right.svg" width="35px" value="submit"></button>
                         </div>
                     </div>
-                    <label for="file-upload" class="upload-text"><p>or drag file here</p></label>
+                    <label for="file-upload" class="upload-text" id="upload-t"><p id="upload-message">or drag file here</p></label>
+                    <style>
+                        .fade-in-out {
+                            animation: fadeInOut 1s forwards;
+                        }
+                    
+                        @keyframes fadeInOut {
+                            0% {
+                                opacity: 0;
+                            }
+                            50% {
+                                opacity: 1;
+                            }
+                            100% {
+                                opacity: 1;
+                            }
+                        }
+                    
+                        .large-text {
+                            font-size: 2em;
+                        }
+                    </style>                    
+                    <script>
+                        document.getElementById('file-upload').addEventListener('change', function() {
+                            var uploadMessage = document.getElementById('upload-message');
+                            if (this.files.length > 0) {
+                                uploadMessage.textContent = 'file uploaded';
+                                uploadMessage.classList.add('fade-in-out','large-text');
+                                setTimeout(function() {
+                                    uploadMessage.classList.remove('fade-in-out');
+                                }, 1000); // Duration of the animation
+                            }
+                        });
+                    </script>
                 </form>
             </div>
             <!-- <div class="result-zone" id="result-zone">
@@ -131,7 +164,7 @@
         </div>
     </section>
     <!--About-->
-    <section class="about">
+    <section class="about" id="about">
         <div class="about-container">
             <div class="about-content-1">
                 <h2 class="about-heading">About Us</h2>
@@ -221,7 +254,7 @@
             inputFile.files = e.dataTransfer.files;
             uploadFile();
         });
-    </script>
 
+    </script>
 </body>
 </html>

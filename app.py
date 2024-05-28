@@ -36,9 +36,9 @@ def upload_file():
 @app.route('/predict/<filename>')
 def predict(filename):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    predictions, predictions_stack = predict_(file_path)
+    predictions, predictions_stack, max_confidence, confidence_message = predict_(file_path)
     all_predictions = predictions + predictions_stack
-    return render_template('results.html', results=all_predictions)
+    return render_template('results.html', results=all_predictions,confidence_message=confidence_message, confidence=max_confidence)
 
 if __name__ == '__main__':
     app.run(debug=True)

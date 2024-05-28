@@ -126,21 +126,31 @@ def predict_(aud):
         dic_stack[genres[p]] = dic_stack.get(genres[p],0) + 1
     
 
-    dic_knn = {x:str(round(dic_knn[x]*100/sum(dic_knn.values()))) + '%' for x in dic_knn}
-    dic_svm = {x:str(round(dic_svm[x]*100/sum(dic_svm.values()))) + '%' for x in dic_svm}
-    dic_nn = {x:str(round(dic_nn[x]*100/sum(dic_nn.values()))) + '%' for x in dic_nn}
-    dic_stack = {x:str(round(dic_stack[x]*100/sum(dic_stack.values()))) + '%' for x in dic_stack}
+    dic_knn_p = {x:str(round(dic_knn[x]*100/sum(dic_knn.values()))) + '%' for x in dic_knn}
+    dic_svm_p = {x:str(round(dic_svm[x]*100/sum(dic_svm.values()))) + '%' for x in dic_svm}
+    dic_nn_p = {x:str(round(dic_nn[x]*100/sum(dic_nn.values()))) + '%' for x in dic_nn}
+    dic_stack_p = {x:str(round(dic_stack[x]*100/sum(dic_stack.values()))) + '%' for x in dic_stack}
+
+    max_confidence_genre = max(dic_stack, key=dic_stack.get)
+    max_confidence = max(dic_stack.values()) * 100 / sum(dic_stack.values())
 
 
-    predictions.append({'model':'KNN', 'genre':dic_knn})
-    predictions.append({'model':'SVM', 'genre':dic_svm})
-    predictions.append({'model':'NN', 'genre':dic_nn})
-    predictions_stack.append({'model':'Stack', 'genre':dic_stack})
+    if max_confidence == 100:
+        confidence_message = f"I'm pretty zsure this is {max_confidence_genre}"
+        max_confidence = 99
+    elif 80 <= max_confidence < 100:
+        confidence_message = f"It's {max_confidence_genre} !"
+    elif 40 <= max_confidence < 80:
+        confidence_message = f"Is it {max_confidence_genre} ?"
+    elif 10 <= max_confidence < 40:
+        confidence_message = f"It's strange to me... {max_confidence_genre} ?"
+    else:
+        confidence_message = f"I'm not sure at all, I think it's {max_confidence_genre}"
 
-    return predictions,predictions_stack
-    # formatted_predictions = "\n".join([
-    #     f"Model: {pred['model']}\n" +
-    #     "\n".join([f"  {genre}: {percentage}" for genre, percentage in pred['genre'].items()])
-    #     for pred in predictions
-    # ])
-    # return formatted_predictions
+    predictions.append({'model':'K-Nearest Neighbors', 'genre':dic_knn_p})
+    predictions.append({'model':'Support Vector Machine', 'genre':dic_svm_p})
+    predictions.append({'model':'Neural Network', 'genre':dic_nn_p})
+    predictions_stack.append({'model':'Stacking Ensemble Learning', 'genre':dic_stack_p})
+
+    return predictions, predictions_stack, max_confidence , confidence_message
+
