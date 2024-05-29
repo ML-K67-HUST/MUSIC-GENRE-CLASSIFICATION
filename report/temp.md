@@ -65,7 +65,7 @@ implemented by Scikit-learn.
 	- Distance weights: Data points that are farther from the point being considered will have smaller weights. The weight formula $W$ based on the distance $d$ can be expressed as follows: $W=1/(d^2)$
  	This ensures that closer data points have a greater influence on the prediction.
 
-The values of the above hyper-parameters considered in the implementation of this project is:
+The values of the above hyper-parameters considered in the implementation of this project are:
 - n_neighbors: $[1,40]$;
 - $p: [1,2]$;
 - $w: ['uniform', 'distance']$; 
@@ -94,7 +94,11 @@ In SVM, important hyperparameters include the regularization parameter <strong>C
 
 - **Kernel Parameters**: For instance, the gamma value in the RBF and sigmoid kernels determines the extent to which a single training example impacts the model, while the degree parameter in the polynomial kernel specifies the complexity of the polynomial function used for classification. These parameters play a crucial role in fine-tuning the performance of the kernel methods.
 
-
+The values of the above hyper-parameters considered in the implementation of this project are:
+- **C**: [1, 300]
+- Kernel: ['linear', 'poly', 'rbf', 'sigmoid']
+- gamma: ['scale', 'auto']
+- 
 </p>
 
 ### 3.3 NEURAL-NET
