@@ -98,7 +98,7 @@ The values of the above hyper-parameters considered in the implementation of thi
 - **C**: [1, 300]
 - Kernel: ['linear', 'poly', 'rbf', 'sigmoid']
 - gamma: ['scale', 'auto']
-- 
+  
 </p>
 
 ### 3.3 NEURAL-NET
