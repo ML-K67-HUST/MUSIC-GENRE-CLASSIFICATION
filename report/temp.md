@@ -50,7 +50,8 @@ Each instance in the training dataset $D$ is represented by a vector in an n-dim
 <p>
 For the problem of Music Genre Classification, we evaluate the accuracy efficiency of KNN
 algorithm in our dataset by considering a range of hyper-parameters confessed below:
-- $n_neighbors$: This parameter defines how many "neighbor" data points should be considered in the process of major voting. In practice, the number of n_neighbors can vary, but it is encouraged to be greater than 1 to avoid noise or error in only one nearest neighbor and not too large to avoid over-generalization.
+	
+- n_neighbors: This parameter defines how many "neighbor" data points should be considered in the process of major voting. In practice, the number of n_neighbors can vary, but it is encouraged to be greater than 1 to avoid noise or error in only one nearest neighbor and not too large to avoid over-generalization.
 	
 - $p$: This parameter decide which distance metric we are going to use. The overall distance
 between two data points m and n in an a-dimensional space can be represented as: 
@@ -65,7 +66,7 @@ implemented by Scikit-learn.
  	This ensures that closer data points have a greater influence on the prediction.
 
 The values of the above hyper-parameters considered in the implementation of this project is:
-- $n_neighbors$: [1,40];
+- n_neighbors: [1,40];
 - $p$: [1,2];
 - $w$: ['uniform', 'distance']; 
 
