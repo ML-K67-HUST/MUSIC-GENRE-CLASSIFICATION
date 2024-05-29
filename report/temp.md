@@ -45,8 +45,23 @@ The data collection process described above provides a systematic approach to ga
 </p>
 
 ### 2.2 Data Preprocessing <br>
-- Nho noi ve train-test-split va stratify sampling
-// Kien viet
+<p>
+The preprocessing pipeline  of GTZAN dataset involves the following steps:
+
+ - Importing libraries and loading dataset.
+
+ - Separating features and target variable.
+
+ - Label encoding:  Coverting categorical labels (blues, jazz, etc.) into numerical labels (0-9) for training and predicting.
+
+ - Nomalizing features: A 'MinMaxScaler' is instantiated to normalize the feature data 'X' to the range [0,1], which is important for many machine learning algorithms that assume similar scales for all features and prevents any single feature from dominating the model due to its large range of values.
+
+ - Splitting the Data into Training and Test Sets: Dividing the dataset into train set and test set with 80% and 20% respectively. When `stratify=y`, the `train_test_split` function willtry to maintain the same class distribution in both the training and testing sets. This is achieved by stratifying the split based on the class labels ( genre labels in this case). This is particularly important in music classification, where class imbalance is common (e.g., one genre has many more songs than others).
+</p>
+<p>
+This process ensures that the data is in a suitable format for machine learning algorithms, with normalized features and numerical target labels. The split into training and test sets allows for the evaluation of model performance on unseen data.
+</p>
+
 ### 2.3 Data Exploration <br>
 // Nghia viet <br>
 gom: <br>
