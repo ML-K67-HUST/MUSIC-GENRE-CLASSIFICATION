@@ -88,7 +88,7 @@ The second approach to our Music Genre Classification project is Support Vector 
 ### Hyperparameters
 
 <p>
-In (SVM), important hyperparameters include the regularization parameter <strong>C</strong> and the parameters specific to the chosen kernel. The regularization parameter <strong>C</strong> plays a crucial role in balancing the desire to minimize training error with the need to avoid overfitting on the test data, ultimately impacting the margin of the classifier. 
+In SVM, important hyperparameters include the regularization parameter <strong>C</strong> and the parameters specific to the chosen kernel. The regularization parameter <strong>C</strong> plays a crucial role in balancing the desire to minimize training error with the need to avoid overfitting on the test data, ultimately impacting the margin of the classifier. 
 
 - **Regularization Parameter C**: A smaller **C** value in an SVM model increases the margin between classes, allowing for some misclassifications but promoting overall generalization. On the other hand, a larger **C** value aims to accurately classify all training examples, potentially leading to overfitting as the model may become too complex and unable to generalize well to unseen data.
 
