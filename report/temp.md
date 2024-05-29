@@ -85,7 +85,7 @@ The second approach to our Music Genre Classification project is Support Vector 
     - **Sigmoid Kernel**: Often used as an alternative to neural networks, the sigmoid kernel can introduce non-linearity similar to RBF. However, it may not perform as well in practice for high-dimensional spaces as 			  RBF or polynomial kernels.
 </p>
 
-### Hyperparameters
+### Key Hyperparameters
 
 <p>
 In SVM, important hyperparameters include the regularization parameter <strong>C</strong> and the parameters specific to the chosen kernel. The regularization parameter <strong>C</strong> plays a crucial role in balancing the desire to minimize training error with the need to avoid overfitting on the test data, ultimately impacting the margin of the classifier. 
