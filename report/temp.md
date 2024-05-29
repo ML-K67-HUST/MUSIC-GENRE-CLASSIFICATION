@@ -40,6 +40,10 @@ The objective of this data collection effort was to gather music features from v
 
 - Extracting Music Features: After downloading the music tracks, the script processes the files to extract various audio features. This includes chroma, spectral contrast, and Mel-frequency cepstral coefficients (MFCCs).
 </p>
+<p>
+The data collection process described above provides a systematic approach to gathering and analyzing musical features from Spotify playlists. This data serves as a foundation for in-depth analysis of musical characteristics across different genres.
+</p>
+
 ### 2.2 Data Preprocessing <br>
 - Nho noi ve train-test-split va stratify sampling
 // Kien viet
