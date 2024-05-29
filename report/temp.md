@@ -96,6 +96,8 @@ In SVM, important hyperparameters include the regularization parameter <strong>C
 
 - **Regularization Parameter C**: A smaller **C** value in an SVM model increases the margin between classes, allowing for some misclassifications but promoting overall generalization. On the other hand, a larger **C** value aims to accurately classify all training examples, potentially leading to overfitting as the model may become too complex and unable to generalize well to unseen data.
 
+  ![Example on the effect of C parameter](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/blob/main/report/c%20effect.png)
+
 - **Kernel Parameters**: For instance, the gamma value in the RBF and sigmoid kernels determines the extent to which a single training example impacts the model, while the degree parameter in the polynomial kernel specifies the complexity of the polynomial function used for classification. These parameters play a crucial role in fine-tuning the performance of the kernel methods.
 
 The values of the above hyper-parameters considered in the implementation of this project are:
