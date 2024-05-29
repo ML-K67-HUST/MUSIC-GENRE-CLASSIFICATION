@@ -73,6 +73,11 @@ The values of the above hyper-parameters considered in the implementation of thi
 </p>
 
 ### 3.2 SVM
+<p> The second approach to our Music Genre Classification project is Support Vector Machine (SVM), a supervised machine learning technique commonly known for classification purposes, and can also be utilized for regression tasks. SVM is especially proficient in dealing with datasets with a high number of dimensions and is recognized for its ability to handle situations where the number of dimensions surpasses the number of samples. The primary advantage of SVM is its ability to identify the optimal hyperplane that effectively divides the data into distinct classes.
+- **Core Concept**: SVM helps identify the hyperplane that maximizes the margin, which is the distance between the hyperplane and the nearest data points from any class, referred to as support vectors.
+- **Non-linearity Handling**: SVM uses kernel functions to transform data that is not linearly separable into a higher-dimensional space where a hyperplane can effectively distinguish between the classes. Popular kernel functions include.:
+  - **Linear Kernel**: Suitable for linearly separable data.
+<\p>
 ### 3.3 NEURAL-NET
 ### 3.4 ENSEMBLE: STACKING
 <p>
