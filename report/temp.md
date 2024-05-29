@@ -82,7 +82,18 @@ The second approach to our Music Genre Classification project is Support Vector 
     - **Linear Kernel**: Suitable for linearly separable data.
     - **Polynomial Kernel**: Useful for data that is not linearly separable but can be separated in a higher-dimensional space.
     - **Radial Basis Function (RBF) Kernel**: Effective in scenarios where the decision boundary is complex and non-linear.
-    - **Sigmoid Kernel**: Often used as an alternative to neural networks, the sigmoid kernel can introduce non-linearity similar to RBF. However, it may not perform as well in practice for high-dimensional spaces as RBF or polynomial kernels.
+    - **Sigmoid Kernel**: Often used as an alternative to neural networks, the sigmoid kernel can introduce non-linearity similar to RBF. However, it may not perform as well in practice for high-dimensional spaces as 			  RBF or polynomial kernels.
+</p>
+
+### Hyperparameters
+
+<p>
+In (SVM), important hyperparameters include the regularization parameter <strong>C</strong> and the parameters specific to the chosen kernel. The regularization parameter <strong>C</strong> plays a crucial role in balancing the desire to minimize training error with the need to avoid overfitting on the test data, ultimately impacting the margin of the classifier. 
+
+- **Regularization Parameter C**: A smaller **C** value in an SVM model increases the margin between classes, allowing for some misclassifications but promoting overall generalization. On the other hand, a larger **C** value aims to accurately classify all training examples, potentially leading to overfitting as the model may become too complex and unable to generalize well to unseen data.
+
+- **Kernel Parameters**: For instance, the gamma value in the RBF and sigmoid kernels determines the extent to which a single training example impacts the model, while the degree parameter in the polynomial kernel specifies the complexity of the polynomial function used for classification. These parameters play a crucial role in fine-tuning the performance of the kernel methods.
+
 
 </p>
 
