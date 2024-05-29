@@ -32,6 +32,7 @@ Keywords: music genre classification, machine learning, feature engineering, ens
 // Khang viet
 
 ### 2.2 Data Preprocessing <br>
+- Nho noi ve train-test-split va stratify sampling
 // Kien viet
 ### 2.3 Data Exploration <br>
 // Nghia viet <br>
@@ -94,7 +95,6 @@ Schematically, our stacking ensemble model look like this
 - Time/Space taken
 - Precision/Recall/F1
 ### 4.2 Validation/Tuning (Khang viet)
-- Train-test-split
 - Cross-validation -> Tuning using GridSearch
 ## V. Deployment <br>
 // TA Viet
