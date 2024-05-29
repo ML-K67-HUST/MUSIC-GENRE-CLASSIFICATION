@@ -66,9 +66,9 @@ implemented by Scikit-learn.
  	This ensures that closer data points have a greater influence on the prediction.
 
 The values of the above hyper-parameters considered in the implementation of this project is:
-- n_neighbors: [1,40];
-- $p$: [1,2];
-- $w$: ['uniform', 'distance']; 
+- n_neighbors: $[1,40]$;
+- $p: [1,2]$;
+- $w: ['uniform', 'distance']$; 
 
 </p>
 
