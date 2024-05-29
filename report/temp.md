@@ -77,7 +77,7 @@ The values of the above hyper-parameters considered in the implementation of thi
 - **Core Concept**: SVM helps identify the hyperplane that maximizes the margin, which is the distance between the hyperplane and the nearest data points from any class, referred to as support vectors.
 - **Non-linearity Handling**: SVM uses kernel functions to transform data that is not linearly separable into a higher-dimensional space where a hyperplane can effectively distinguish between the classes. Popular kernel functions include.:
   - **Linear Kernel**: Suitable for linearly separable data.
-<\p>
+</p>
 ### 3.3 NEURAL-NET
 ### 3.4 ENSEMBLE: STACKING
 <p>
