@@ -52,7 +52,7 @@ For the problem of Music Genre Classification, we evaluate the accuracy efficien
 algorithm in our dataset by considering a range of hyper-parameters confessed below:
 - $n_neighbors$: This parameter defines how many "neighbor" data points should be considered in the process of major voting. In practice, the number of n_neighbors can vary, but it is encouraged to be greater than 1 to avoid noise or error in only one nearest neighbor and not too large to avoid over-generalization.
 	
-- $p$: : This parameter decide which distance metric we are going to use. The overall distance
+- $p$: This parameter decide which distance metric we are going to use. The overall distance
 between two data points m and n in an a-dimensional space can be represented as: 
 	$$d(\mathbf{m}, \mathbf{n}) = \sqrt[p]{\sum_{i=1}^{a} (m_i - n_i)^p}$$
 If we set p = 1 and p = 2, we will acquire the Manhattan Distance and the Euclidean distance, respectively. Different distance metrics can affect the neighbor-choosing process.
