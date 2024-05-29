@@ -29,7 +29,7 @@ Keywords: music genre classification, machine learning, feature engineering, ens
 //Ha viet
 ## II. Data Preparation 
 ### 2.1 Data Collection <br>
-// Khang viet
+// Kiên viet
 
 ### 2.2 Data Preprocessing <br>
 - Nho noi ve train-test-split va stratify sampling
@@ -117,7 +117,7 @@ Schematically, our stacking ensemble model look like this
 </p>
 
 ## IV. Evaluation 
-### 4.1 Metrics (Kien viet)
+### 4.1 Metrics (Khang viet)
 - Accuracy
 - Time/Space taken
 - Precision/Recall/F1
