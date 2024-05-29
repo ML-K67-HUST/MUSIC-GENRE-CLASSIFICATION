@@ -80,12 +80,16 @@ The second approach to our Music Genre Classification project is Support Vector 
   
 - **Non-linearity Handling**: SVM uses kernel functions to transform data that is not linearly separable into a higher-dimensional space where a hyperplane can effectively distinguish between the classes. Popular kernel functions include.:
     - **Linear Kernel**: Suitable for linearly separable data.
+      $$k\left( x, z \right) = x^T z$$
     - **Polynomial Kernel**: Useful for data that is not linearly separable but can be separated in a higher-dimensional space.
+ 	$$k\left( x, z \right) = \left(r + \gamma x^T z \right)$$
     - **Radial Basis Function (RBF) Kernel**: Effective in scenarios where the decision boundary is complex and non-linear.
-    - **Sigmoid Kernel**: Often used as an alternative to neural networks, the sigmoid kernel can introduce non-linearity similar to RBF. However, it may not perform as well in practice for high-dimensional spaces as 			  RBF or polynomial kernels.
+ 	$$k\left( x, z \right) = \exp\left(\gamma \||x-z\||^2 \right)$$
+    - **Sigmoid Kernel**: Often used as an alternative to neural networks, the sigmoid kernel can introduce non-linearity similar to RBF. However, it may not perform as well in practice for high-dimensional spaces as RBF or polynomial kernels.
+      	$$k\left( x, z \right) = \tanh\left(\gamma x^T z + r\right)$$
 </p>
 
-### Key Hyperparameters
+#### Key Hyperparameters
 
 <p>
 In SVM, important hyperparameters include the regularization parameter <strong>C</strong> and the parameters specific to the chosen kernel. The regularization parameter <strong>C</strong> plays a crucial role in balancing the desire to minimize training error with the need to avoid overfitting on the test data, ultimately impacting the margin of the classifier. 
