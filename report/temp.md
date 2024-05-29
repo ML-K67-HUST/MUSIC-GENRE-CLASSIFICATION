@@ -31,6 +31,7 @@ Keywords: music genre classification, machine learning, feature engineering, ens
 ### 2.1 Data Collection <br>
 <p>
 The objective of this data collection effort was to gather music features from various genres available on Spotify. The data collected is intended for further analysis to understand musical attributes and their correlation with different genres. The data collection process was implemented using a Jupyter notebook, which facilitated the automated scraping and processing of music data from Spotify. There are four primary steps in the process:
+
 - Setting Up the Environment: Configure Spotify API credentials to authenticate and fetch data.
 
 - Defining the Playlist and Genre: Define the Spotify playlist link and the genre of music to be scraped. The user is required to input the playlist URL manually.
