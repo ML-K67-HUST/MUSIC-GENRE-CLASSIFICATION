@@ -82,8 +82,11 @@ The second approach to our Music Genre Classification project is Support Vector 
     - **Linear Kernel**: Suitable for linearly separable data.
 
 </p>
+
 ### 3.3 NEURAL-NET
+
 ### 3.4 ENSEMBLE: STACKING
+
 <p>
 Now we already have three different models: K-Nearest Neighbors (KNN), Support Vector Machine (SVM), and a Neural Network (NN). Each of these models possesses unique characteristics that make them suitable for different types of data and learning tasks. KNN excels in capturing local patterns, SVM thrives in high-dimensional spaces, while NN can model complex, non-linear relationships. By combining these independent models, stacking leverages their complementary strengths to produce more robust predictions.
 </p>
