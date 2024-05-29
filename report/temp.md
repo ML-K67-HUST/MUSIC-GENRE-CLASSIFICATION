@@ -50,21 +50,24 @@ Each instance in the training dataset $D$ is represented by a vector in an n-dim
 <p>
 For the problem of Music Genre Classification, we evaluate the accuracy efficiency of KNN
 algorithm in our dataset by considering a range of hyper-parameters confessed below:
-- n_neighbors: This parameter defines how many "neighbor" data points should be considered in the process of major voting. In practice, the number of n_neighbors can vary, but it is encouraged to be greater than 1 to avoid noise or error in only one nearest neighbor and not too large to avoid over-generalization.
+- $n_neighbors$: This parameter defines how many "neighbor" data points should be considered in the process of major voting. In practice, the number of n_neighbors can vary, but it is encouraged to be greater than 1 to avoid noise or error in only one nearest neighbor and not too large to avoid over-generalization.
 	
-- p: : This parameter decide which distance metric we are going to use. The overall distance
+- $p$: : This parameter decide which distance metric we are going to use. The overall distance
 between two data points m and n in an a-dimensional space can be represented as: 
 	$$d(\mathbf{m}, \mathbf{n}) = \sqrt[p]{\sum_{i=1}^{a} (m_i - n_i)^p}$$
 If we set p = 1 and p = 2, we will acquire the Manhattan Distance and the Euclidean distance, respectively. Different distance metrics can affect the neighbor-choosing process.
 
-- weights: This parameter determines the weight assigned to each data point considered. Typically, in the "majority vote," every data point is given equal importance. However, this can sometimes introduce biases, leading to inconsistent predictions. Weighted "votes" address this issue by adjusting the importance of each vote according to specific rules. This adjustment can significantly impact the model's output, either positively or negatively, depending on the nature of the data.
+- $weights$: This parameter determines the weight assigned to each data point considered. Typically, in the "majority vote," every data point is given equal importance. However, this can sometimes introduce biases, leading to inconsistent predictions. Weighted "votes" address this issue by adjusting the importance of each vote according to specific rules. This adjustment can significantly impact the model's output, either positively or negatively, depending on the nature of the data.
 For this problem, we consider the following values for weight metric:
 	- Uniform weights: All data points have the same weight. This is also the default setup
 implemented by Scikit-learn.
 	- Distance weights: Data points that are farther from the point being considered will have smaller weights. The weight formula $W$ based on the distance $d$ can be expressed as follows: $W=1/(d^2)$
  	This ensures that closer data points have a greater influence on the prediction.
 
-
+The values of the above hyper-parameters considered in the implementation of this project is:
+- $n_neighbors: [1,40]$;
+- $p: [1,2]$;
+- $w: ['uniform', 'distance']$; 
 
 </p>
 
