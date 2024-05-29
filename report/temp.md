@@ -43,8 +43,31 @@ gom: <br>
 ### 3.1 KNN
 <p>
 The first approach to our Music Genre Classification project is K-Nearest Neighbors (KNN), a non-parametric, supervised learning classifier which use proximity to make classifications about the grouping of an individual data point. Due to its simplicity and adaptibility, choosing KNN helps establishing a strong baseline for the understanding of music data and futre implementations of more sophisticated models. 
- </p>
- 
+</p>
+<p>
+Each instance in the training dataset $D$ is represented by a vector in an n-dimensional space, e.g., $x_{i}=(x_{i1},x_{i2},...,x_{in})^{T}$ where each dimension represents an attribute. For a new instance $z$ added to the space, the algorithm computes the distance between each instance $x$ in $D$ and $z$, then determines a set $NB(z)$ of the nearest neighbors of $z$ and finally use the majority of the labels in $NB(z)$ to predict the label for $z$.
+</p>
+<p>
+For the problem of Music Genre Classification, we evaluate the accuracy efficiency of KNN
+algorithm in our dataset by considering a range of hyper-parameters confessed below:
+- n_neighbors: This parameter defines how many "neighbor" data points should be considered in the process of major voting. In practice, the number of n_neighbors can vary, but it is encouraged to be greater than 1 to avoid noise or error in only one nearest neighbor and not too large to avoid over-generalization.
+	
+- p: : This parameter decide which distance metric we are going to use. The overall distance
+between two data points m and n in an a-dimensional space can be represented as: 
+	$$d(\mathbf{m}, \mathbf{n}) = \sqrt[p]{\sum_{i=1}^{a} (m_i - n_i)^p}$$
+If we set p = 1 and p = 2, we will acquire the Manhattan Distance and the Euclidean distance, respectively. Different distance metrics can affect the neighbor-choosing process.
+
+- weights: This parameter determines the weight assigned to each data point considered. Typically, in the "majority vote," every data point is given equal importance. However, this can sometimes introduce biases, leading to inconsistent predictions. Weighted "votes" address this issue by adjusting the importance of each vote according to specific rules. This adjustment can significantly impact the model's output, either positively or negatively, depending on the nature of the data.
+For this problem, we consider the following values for weight metric:
+	- Uniform weights: All data points have the same weight. This is also the default setup
+implemented by Scikit-learn.
+	- Distance weights: Data points that are farther from the point being considered will have smaller weights. The weight formula $W$ based on the distance $d$ can be expressed as follows: $W=1/(d^2)$
+ 	This ensures that closer data points have a greater influence on the prediction.
+
+
+
+</p>
+
 ### 3.2 SVM
 ### 3.3 NEURAL-NET
 ### 3.4 ENSEMBLE: STACKING
