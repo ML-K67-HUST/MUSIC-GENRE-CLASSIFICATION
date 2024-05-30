@@ -136,6 +136,18 @@ The values of the above hyper-parameters considered in the implementation of thi
 </p>
 
 ### 3.3 NEURAL-NET
+<p>
+In this section, we detail the process of training and evaluating a neural network model for music genre classification using the preprocessed dataset. The model architecture, training procedure, and evaluation methods are discussed comprehensively.
+</p>
+<p>
+The neural network model is designed using the TensorFlow and Keras libraries. The architecture consists of the following layers:
+
+- Input Layer: A '**Flatten**' layer to convert the input data into a one-dimensional array suitable for dense layers.
+
+- Hidden Layers: Three '**Dense**' layers with 300 neurons each, activated using the ReLU function, which helps the network learn non-linear patterns.
+
+- Output Layer: A '**Dense**' layer with 10 neurons (corresponding to the number of music genres) and a softmax activation function. The softmax function will assign a probability to each class, with the sum of probabilities equaling 1.
+</p>
 
 ### 3.4 ENSEMBLE: STACKING
 
