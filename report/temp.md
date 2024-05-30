@@ -153,6 +153,9 @@ The network uses a variant of the gradient descent optimization algorithm named 
 
  ![Best model](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/blob/main/report/Screenshot%202024-05-30%20091914.png)
 </p>
+<p>
+The core idea of this neural network is to leverage a multi-layer perceptron (MLP) architecture to learn the underlying patterns in audio features for music genre classification. By training on a labeled dataset, the model adjusts its parameters to minimize the classification error, aiming to achieve high accuracy in predicting the genre of new, unseen music tracks. The combination of dense layers and appropriate activation functions enables the network to capture complex relationships in the data, while techniques like early stopping and model checkpointing ensure robust and efficient training.
+</p>
 
 ### 3.4 ENSEMBLE: STACKING
 
