@@ -148,6 +148,11 @@ The neural network model is designed using the TensorFlow and Keras libraries. T
 
 - Output Layer: A '**Dense**' layer with 10 neurons (corresponding to the number of music genres) and a softmax activation function. The softmax function will assign a probability to each class, with the sum of probabilities equaling 1.
 </p>
+<p>
+The network uses a variant of the gradient descent optimization algorithm named Adam. The learning rate is set very low (1e-4), which means the steps taken towards the minimum of the loss function will be small, potentially providing more precise convergence at the risk of taking more time to train. The early stopping callback is used to halt training if the validation loss does not improve for 40 consecutive epochs, preventing overfitting. Model checkpoints are used to save the state of the model periodically during training, specifically the best one seen so far according to validation loss:
+
+ ![Best model](https://github.com/ML-K67-HUST/MUSIC-GENRE-CLASSIFICATION_PROJ/blob/main/report/Screenshot%202024-05-30%20091914.png)
+</p>
 
 ### 3.4 ENSEMBLE: STACKING
 
