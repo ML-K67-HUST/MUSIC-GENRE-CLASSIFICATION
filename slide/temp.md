@@ -1,1 +1,0 @@
-# Noi dung slide tung phan o day 
